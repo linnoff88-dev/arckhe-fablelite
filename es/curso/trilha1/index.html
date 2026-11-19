@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="fable-lite" name="inema-course"/>
+<title>Ruta 1 · Los registros son oro | Fable Lite</title>
+<!-- ANTI-FOUC -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark':{dark:true,attr:null,cs:'dark'},'claro':{dark:false,attr:null,cs:'light'},'sepia':{dark:false,attr:'sepia',cs:'light'},'foco':{dark:null,attr:'foco',cs:null},'contraste':{dark:true,attr:'contraste',cs:'dark'} };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style; var scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale/100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl('+a[0]+' '+a[1]+'% '+a[2]+'%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "fable-lite",
+    "tracks": [
+      { "n": "1", "title": "Os Logs São Ouro", "modules": [
+        { "id": "1-1", "title": "Onde Vivem as Conversas e a Anatomia de uma Sessão", "topics": 6, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "Gordura vs Ouro — e o Mito do Raciocínio Minerável", "topics": 6, "href": "curso/trilha1/modulo-1-2.html" }
+      ]},
+      { "n": "2", "title": "A Mão na Massa", "modules": [
+        { "id": "2-1", "title": "Debloat: Destilando a Transcrição", "topics": 6, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Corpus, Números e o Delta Fable vs Opus", "topics": 6, "href": "curso/trilha2/modulo-2-2.html" }
+      ]},
+      { "n": "3", "title": "Do Delta ao Playbook", "modules": [
+        { "id": "3-1", "title": "Escrevendo o Playbook", "topics": 6, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Injetando no Modelo (e Sem Dados Próprios)", "topics": 6, "href": "curso/trilha3/modulo-3-2.html" }
+      ]},
+      { "n": "4", "title": "A Prova Real", "modules": [
+        { "id": "4-1", "title": "A Armadilha da Amostra", "topics": 6, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "As Soluções Aplicáveis", "topics": 6, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "Exemplos de Utilidade", "topics": 6, "href": "curso/trilha4/modulo-4-3.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Acento da trilha (emerald) + blue/purple p/ nav */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    [id] { scroll-margin-top: 5rem; }
+  </style>
+<link href="https://inematds.github.io/fablelite/curso/trilha1/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/fablelite/en/curso/trilha1/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/fablelite/es/curso/trilha1/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha1/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<a class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg" href="#conteudo">Saltar al contenido</a>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">✨</span><span class="font-bold text-lg hidden sm:inline">Fable Lite</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html">
+<span class="sm:hidden">T1</span><span class="hidden sm:inline">Los logs son oro</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html">
+<span class="sm:hidden">T2</span><span class="hidden sm:inline">Manos a la obra</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html">
+<span class="sm:hidden">T3</span><span class="hidden sm:inline">Del Delta al Playbook</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html">
+<span class="sm:hidden">T4</span><span class="hidden sm:inline">La prueba real</span>
+</a>
+<button class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 transition-colors text-sm" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span>Mi recorrido</span>
+<span aria-hidden="true" class="inema-journey-badge hidden" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<button aria-expanded="false" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" data-inema-appearance-toggle="[data-inema-appearance]" title="Apariencia" type="button"><span aria-hidden="true">◑</span></button>
+<div class="inema-appearance-pop" data-inema-appearance=""></div>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle" title="Tema claro/oscuro">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main id="conteudo">
+<!-- HEADER + HERO SVG -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">RUTA 1</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🪙 Los logs son oro</h1>
+<p class="text-lg text-neutral-400 max-w-3xl mb-8">
+        Antes de medir cualquier cosa, hay que saber dónde está enterrado el oro. Esta ruta mapea dónde viven
+        las conversaciones de Claude Code, disecciona la anatomía de una sesión JSONL y separa la <strong class="text-emerald-400">grasa</strong> del <strong class="text-emerald-400">oro</strong>.
+      </p>
+<!-- HERO SVG: arquivo .jsonl -> eventos -> campo model -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-8 overflow-hidden">
+<svg aria-label="Un archivo de sesión JSONL es una pila de eventos; cada evento contiene un campo message.model que indica qué modelo lo escribió" class="w-full h-auto" role="img" viewbox="0 0 1000 220">
+<defs>
+<lineargradient id="t1h-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop></lineargradient>
+<filter height="180%" id="t1h-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="t1h-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#10b981" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="t1h-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#t1h-grid)" height="220" width="1000" x="0" y="0"></rect>
+<!-- arquivo -->
+<g filter="url(#t1h-glow)"><rect fill="#0e2018" height="120" rx="14" stroke="url(#t1h-grad)" stroke-width="2" width="170" x="40" y="50"></rect></g>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="125" y="92">sesión.jsonl</text>
+<text fill="#a7f3d0" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="125" y="116">append-only</text>
+<text fill="#a7f3d0" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="125" y="136">1 evento / línea</text>
+<!-- eventos empilhados -->
+<g font-family="Inter,sans-serif" font-size="12.5">
+<g class="wf-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="320" x="320" y="34"></rect><text fill="#bfe6ff" x="338" y="54">{"type":"user", ...}</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="320" x="320" y="72"></rect><text fill="#bfe6ff" x="338" y="92">{"type":"assistant", ...}</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="320" x="320" y="110"></rect><text fill="#bfe6ff" x="338" y="130">{"type":"assistant", ...}</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="30" rx="8" stroke="#38bdf8" stroke-width="1.8" width="320" x="320" y="148"></rect><text fill="#bfe6ff" x="338" y="168">{"type":"system", ...}</text></g>
+</g>
+<path d="M210,110 L320,90" fill="none" marker-end="url(#t1h-ahc)" opacity="0.5" stroke="#38bdf8" stroke-width="1.8"></path>
+<!-- campo model -->
+<g filter="url(#t1h-glow)"><rect fill="#0e2018" height="68" rx="14" stroke="url(#t1h-grad)" stroke-width="2" width="230" x="730" y="76"></rect></g>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="14" font-weight="600" text-anchor="middle" x="845" y="104">message.model</text>
+<text fill="#a7f3d0" font-family="Inter,sans-serif" font-size="12" text-anchor="middle" x="845" y="126">el campo de ORO</text>
+<path d="M640,100 L730,108" fill="none" opacity="0.55" stroke="#34d399" stroke-width="1.8"></path>
+</svg>
+</div>
+<div class="grid grid-cols-4 gap-4 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">2</div><div class="text-xs text-neutral-400">Módulos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">12</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">~50 min</div><div class="text-xs text-neutral-400">Duración</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Básico</div><div class="text-xs text-neutral-400">Nivel</div></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- PROGRESSO DA TRILHA -->
+<section class="mb-12">
+<div aria-label="Progreso de la ruta 1" aria-valuemax="100" aria-valuemin="0" class="inema-meter bg-dark-800 border border-dark-600 rounded-xl p-5 max-w-md" data-inema-meter="trilha:1" role="progressbar">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm text-neutral-400">Progreso de la Ruta 1</span>
+<span class="text-emerald-400 font-bold" data-inema-meter-pct="">0%</span>
+</div>
+<div class="inema-bar"><div class="inema-bar__fill" data-inema-meter-fill=""></div></div>
+<span class="text-xs text-neutral-500" data-inema-meter-frac="">0 de 0</span>
+</div>
+</section>
+<!-- MAPA DA TRILHA -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Mapa de la ruta</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-emerald-500/30 p-5 transition-all" href="#modulo-1-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold text-sm">1.1</span>
+<span class="text-xs text-neutral-500">~25 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-emerald-400 transition-colors">📂 Dónde viven las conversaciones</h3>
+<p class="text-xs text-neutral-400">Un archivo por sesión</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-emerald-500/30 p-5 transition-all" href="#modulo-1-2">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold text-sm">1.2</span>
+<span class="text-xs text-neutral-500">~25 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-emerald-400 transition-colors">⛏️ Grasa vs. oro</h3>
+<p class="text-xs text-neutral-400">El mito del razonamiento que se puede minar</p>
+</a>
+</div>
+</section>
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- MÓDULO 1.1 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" data-inema-module="1-1" data-inema-track="1" id="modulo-1-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold">1.1</span>
+<span class="text-xs text-neutral-500">~25 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">📂 Dónde viven las conversaciones y la anatomía de una sesión</h3>
+<p class="text-neutral-400 text-sm">El disco, el formato JSONL, la anatomía de un evento y el campo que separa los modelos.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t11-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">📁</span>
+<div><span class="font-medium">Dónde viven los logs</span><span class="text-neutral-500 text-sm ml-2">- ~/.claude/projects/</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t11-1">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Cada sesión es un archivo <code class="font-mono text-emerald-400">~/.claude/projects/&lt;projeto&gt;/&lt;sessão&gt;.jsonl</code>; hay miles en total.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es la fuente bruta de todo. Saber la ruta es el primer paso para minar.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Un archivo por sesión; una carpeta por proyecto; sin base de datos.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t11-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">📜</span>
+<div><span class="font-medium">JSONL = un evento por línea</span><span class="text-neutral-500 text-sm ml-2">- streaming append-only</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t11-2">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">No es un único JSON: cada línea es un objeto JSON independiente, agregado a medida que avanza la conversación.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Lees línea por línea, sin cargar el archivo entero, y el parsing se vuelve trivial.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Solo anexado; una línea = un evento; resistente a interrupciones.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t11-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🧬</span>
+<div><span class="font-medium">Anatomía de un evento</span><span class="text-neutral-500 text-sm ml-2">- type, message, timestamp...</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t11-3">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Campos como <code class="font-mono text-emerald-400">type</code>, <code class="font-mono text-emerald-400">message</code>, <code class="font-mono text-emerald-400">timestamp</code>, <code class="font-mono text-emerald-400">uuid</code>, <code class="font-mono text-emerald-400">cwd</code>, <code class="font-mono text-emerald-400">gitBranch</code>.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Saber qué contiene cada campo es lo que permite filtrar, agrupar y medir.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">type ∈ user/assistant/system/summary; timestamp ordena; cwd/gitBranch dan contexto.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t11-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🧱</span>
+<div><span class="font-medium">Bloques de contenido</span><span class="text-neutral-500 text-sm ml-2">- text, thinking, tool_use, tool_result</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t11-4">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El asistente habla en bloques: <code class="font-mono text-emerald-400">text</code>, <code class="font-mono text-emerald-400">thinking</code>, <code class="font-mono text-emerald-400">tool_use</code>, <code class="font-mono text-emerald-400">tool_result</code>. Claude Code registra CADA bloque en una LÍNEA separada.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es el detalle que lo cambia todo en el conteo: «por línea» diluye la señal; por eso agrupamos por turnos.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Un turno físico = una línea = un bloque; varios bloques componen un turno lógico.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t11-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🏅</span>
+<div><span class="font-medium">message.model</span><span class="text-neutral-500 text-sm ml-2">- el campo de ORO</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t11-5">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El campo que indica qué modelo escribió cada turno: <code class="font-mono text-emerald-400">claude-fable-5</code>, <code class="font-mono text-emerald-400">claude-opus-4-8</code>, <code class="font-mono text-emerald-400">claude-haiku-4-5</code>...</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es lo que permite filtrar por modelo y separar el corpus de cada uno.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Solo los eventos del asistente tienen model; es la clave para comparar Fable con Opus.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t11-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">🔗</span>
+<div><span class="font-medium">Turno físico frente a turno lógico</span><span class="text-neutral-500 text-sm ml-2">- la unidad adecuada</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t11-6">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Turno físico = una línea. Turno lógico = 1 prompt humano hasta el siguiente prompt humano (todo lo que hay en medio).</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Medir por línea diluye la señal; el turno lógico es la unidad que revela el ritmo de trabajo.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Agrupa por prompt humano; cuenta la presencia de thinking y tool_use por turno lógico.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-1-1')">Ver en modal</button>
+<a class="px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-1.html">Ver completo</a>
+</div>
+</div>
+<!-- MÓDULO 1.2 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" data-inema-module="1-2" data-inema-track="1" id="modulo-1-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-emerald-400 font-bold">1.2</span>
+<span class="text-xs text-neutral-500">~25 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">⛏️ Grasa vs. oro — y el mito del razonamiento minable</h3>
+<p class="text-neutral-400 text-sm">Qué descartar, qué guardar, por qué el pensamiento literal no está ahí y la ética del corpus.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t12-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🍔</span>
+<div><span class="font-medium">La grasa</span><span class="text-neutral-500 text-sm ml-2">- tool_results, dumps, anexos</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t12-1">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm"><code class="font-mono text-emerald-400">tool_result</code> contenido repetido, volcados de archivos completos, salida de comandos, blobs de adjuntos (base64), contabilidad del harness (usage, sidechain, isMeta).</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es la mayor parte del peso del archivo — y casi nada de la señal de comportamiento.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Relleno = salida repetida + bytes opacos; descarta sin perder el ritmo.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t12-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">💎</span>
+<div><span class="font-medium">El oro</span><span class="text-neutral-500 text-sm ml-2">- prompts, texto, ritmo, secuencia</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t12-2">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Tus prompts, el texto del asistente, la PRESENCIA de razonamiento, la secuencia de <code class="font-mono text-emerald-400">tool_use</code> y las marcas de tiempo.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es lo que revela cómo trabaja cada modelo — el material del playbook.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Oro = decisiones + orden de acciones + cadencia, no bytes de salida.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t12-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🔐</span>
+<div><span class="font-medium">El mito del razonamiento que se puede minar</span><span class="text-neutral-500 text-sm ml-2">- thinking viene cifrado</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t12-3">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El texto del <code class="font-mono text-emerald-400">thinking</code> viene VACÍO/cifrado en los logs (solo la <code class="font-mono text-emerald-400">signature</code>). No extraes el pensamiento literal.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es la diferencia honesta del curso: mides la presencia y el ritmo del razonamiento, no su contenido.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Presencia ≠ contenido; la signature demuestra que hubo razonamiento sin revelarlo.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t12-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🎵</span>
+<div><span class="font-medium">Por qué esto sigue siendo poderoso</span><span class="text-neutral-500 text-sm ml-2">- presencia + cadencia + orden</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t12-4">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">La presencia de razonamiento + la cadencia de herramientas + el orden de las acciones revelan el «ritmo» de trabajo de un modelo.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es exactamente ese ritmo el que se convierte en una regla de playbook que se puede inyectar.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Ritmo = pensar antes de actuar + densidad de herramientas + leer antes de editar.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t12-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">📉</span>
+<div><span class="font-medium">Cuánto se puede reducir</span><span class="text-neutral-500 text-sm ml-2">- ~74% en una sesión típica</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t12-5">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El debloat reduce una sesión típica alrededor de un 74%: la grasa representa la mayor parte.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Ajusta las expectativas: la señal cabe en un archivo pequeño y legible.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">−74% típico; el oro restante es lo que analizas.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t12-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">🔏</span>
+<div><span class="font-medium">Ética y privacidad</span><span class="text-neutral-500 text-sm ml-2">- el corpus es sensible</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t12-6">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-emerald-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Los logs contienen TU código y datos; trata el corpus como sensible y redacta la información antes de compartirlo.</p></div>
+<div><span class="text-emerald-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Minar no es excusa para filtrar secretos; el corpus puede contener claves y rutas.</p></div>
+<div><span class="text-emerald-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Trátalo como dato personal; redacta los secretos; lo valioso es el ritmo, no los datos.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-1-2')">Ver en modal</button>
+<a class="px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-2.html">Ver completo</a>
+</div>
+</div>
+<!-- NAVEGAÇÃO ENTRE TRILHAS -->
+<div class="flex flex-col sm:flex-row gap-4 mt-10">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="../../index.html">← Volver a la landing</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="../trilha2/index.html">Próxima ruta: Manos a la obra →</a>
+</div>
+</div>
+</main>
+<!-- MODAIS -->
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-1-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-emerald-400 font-bold">1.1</span><span class="font-semibold">Dónde viven las conversaciones y la anatomía de una sesión</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-1-1.html" title="Módulo 1.1"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-1-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-emerald-400 font-bold">1.2</span><span class="font-semibold">Grasa vs. Oro — y el mito del razonamiento extraíble</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-1-2.html" title="Módulo 1.2"></iframe>
+</div>
+</div>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>Fable Lite · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a> · 2026</p>
+</div>
+</footer>
+<script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800') || document;
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => { if (exp !== explanation) { exp.classList.remove('active'); const b = exp.closest('.topic-item')?.querySelector('button'); if (b) b.setAttribute('aria-expanded','false'); } });
+      const willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(modalId) { const m = document.getElementById(modalId); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden')); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      const themeToggle = document.getElementById('theme-toggle');
+      const darkIcon = document.getElementById('theme-toggle-dark-icon');
+      const lightIcon = document.getElementById('theme-toggle-light-icon');
+      const html = document.documentElement;
+      function sync() { const isDark = html.classList.contains('dark'); darkIcon.classList.toggle('hidden', !isDark); lightIcon.classList.toggle('hidden', isDark); }
+      sync();
+      themeToggle.addEventListener('click', () => {
+        const goDark = !html.classList.contains('dark');
+        if (window.INEMA && INEMA.setPref) INEMA.setPref('theme', goDark ? 'inema-dark' : 'claro');
+        else { html.classList.toggle('dark'); localStorage.setItem('theme', goDark ? 'dark' : 'light'); }
+        sync();
+      });
+      document.addEventListener('inema:progress', sync);
+    })();
+  </script>
+<script src="../../../assets/learn.js"></script>
+<script>if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }</script>
+</body>
+</html>

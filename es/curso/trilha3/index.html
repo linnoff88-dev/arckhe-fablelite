@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="fable-lite" name="inema-course"/>
+<title>Ruta 3 · Del delta al playbook | Fable Lite</title>
+<!-- ANTI-FOUC -->
+<script>
+  (function () {
+    try {
+      var html = document.documentElement;
+      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
+      var p = clone(DEF);
+      try {
+        var raw = localStorage.getItem('inema.prefs');
+        if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+      } catch (e) { p = clone(DEF); }
+      var THEMES = { 'inema-dark':{dark:true,attr:null,cs:'dark'},'claro':{dark:false,attr:null,cs:'light'},'sepia':{dark:false,attr:'sepia',cs:'light'},'foco':{dark:null,attr:'foco',cs:null},'contraste':{dark:true,attr:'contraste',cs:'dark'} };
+      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
+      if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
+      html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
+      html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
+      var s = html.style; var scale = (+p.fontScale || 100);
+      s.setProperty('--inema-font-scale', (scale/100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
+      var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
+      s.setProperty('--font-body', fam);
+      var ACC = { emerald:[152,76,45], blue:[217,91,60], purple:[258,90,66], amber:[38,92,50], teal:[174,72,41], rose:[350,89,60] };
+      var a = ACC[p.accent] || ACC.emerald;
+      s.setProperty('--accent-h', a[0]+''); s.setProperty('--accent-s', a[1]+'%'); s.setProperty('--accent-l', a[2]+'%'); s.setProperty('--accent', 'hsl('+a[0]+' '+a[1]+'% '+a[2]+'%)');
+    } catch (err) { try { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; } catch (e) {} }
+  })();
+  </script>
+<!-- MANIFESTO -->
+<script data-inema-manifest="" type="application/json">
+  {
+    "course": "fable-lite",
+    "tracks": [
+      { "n": "1", "title": "Os Logs São Ouro", "modules": [
+        { "id": "1-1", "title": "Onde Vivem as Conversas e a Anatomia de uma Sessão", "topics": 6, "href": "curso/trilha1/modulo-1-1.html" },
+        { "id": "1-2", "title": "Gordura vs Ouro — e o Mito do Raciocínio Minerável", "topics": 6, "href": "curso/trilha1/modulo-1-2.html" }
+      ]},
+      { "n": "2", "title": "A Mão na Massa", "modules": [
+        { "id": "2-1", "title": "Debloat: Destilando a Transcrição", "topics": 6, "href": "curso/trilha2/modulo-2-1.html" },
+        { "id": "2-2", "title": "Corpus, Números e o Delta Fable vs Opus", "topics": 6, "href": "curso/trilha2/modulo-2-2.html" }
+      ]},
+      { "n": "3", "title": "Do Delta ao Playbook", "modules": [
+        { "id": "3-1", "title": "Escrevendo o Playbook", "topics": 6, "href": "curso/trilha3/modulo-3-1.html" },
+        { "id": "3-2", "title": "Injetando no Modelo (e Sem Dados Próprios)", "topics": 6, "href": "curso/trilha3/modulo-3-2.html" }
+      ]},
+      { "n": "4", "title": "A Prova Real", "modules": [
+        { "id": "4-1", "title": "A Armadilha da Amostra", "topics": 6, "href": "curso/trilha4/modulo-4-1.html" },
+        { "id": "4-2", "title": "As Soluções Aplicáveis", "topics": 6, "href": "curso/trilha4/modulo-4-2.html" },
+        { "id": "4-3", "title": "Exemplos de Utilidade", "topics": 6, "href": "curso/trilha4/modulo-4-3.html" }
+      ]}
+    ]
+  }
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="../../../assets/learn.css" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s} .wf-a:nth-child(4){animation-delay:.75s}
+    }
+
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Acento da trilha (purple) + emerald/blue p/ nav */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.22); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #b91c1c; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    [id] { scroll-margin-top: 5rem; }
+  </style>
+<link href="https://inematds.github.io/fablelite/curso/trilha3/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/fablelite/en/curso/trilha3/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/fablelite/es/curso/trilha3/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<a class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-purple-600 focus:text-white focus:rounded-lg" href="#conteudo">Saltar al contenido</a>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">✨</span><span class="font-bold text-lg hidden sm:inline">Fable Lite</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html">
+<span class="sm:hidden">T1</span><span class="hidden sm:inline">Los logs son oro</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html">
+<span class="sm:hidden">T2</span><span class="hidden sm:inline">Manos a la obra</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html">
+<span class="sm:hidden">T3</span><span class="hidden sm:inline">Del Delta al Playbook</span>
+</a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html">
+<span class="sm:hidden">T4</span><span class="hidden sm:inline">La prueba real</span>
+</a>
+<button class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 transition-colors text-sm" data-inema-journey-open="" type="button">
+<span aria-hidden="true">◷</span><span>Mi recorrido</span>
+<span aria-hidden="true" class="inema-journey-badge hidden" data-count="0" data-inema-journey-badge=""></span>
+</button>
+<button aria-expanded="false" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" data-inema-appearance-toggle="[data-inema-appearance]" title="Apariencia" type="button"><span aria-hidden="true">◑</span></button>
+<div class="inema-appearance-pop" data-inema-appearance=""></div>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" id="theme-toggle" title="Tema claro/oscuro">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main id="conteudo">
+<!-- HEADER + HERO SVG -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">RUTA 3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📜 Del Delta al Playbook</h1>
+<p class="text-lg text-neutral-400 max-w-3xl mb-8">
+        El delta ya se midió: ahora se convierte en acción. Esta ruta transforma los números en <strong class="text-purple-400">reglas</strong>
+        dentro de un único <code class="font-mono text-purple-400">.md</code> procesable, y después <strong class="text-purple-400">inyecta</strong> este playbook
+        en el modelo en cada sesión (hook, skill o <code class="font-mono text-purple-400">CLAUDE.md</code>) — con un plan B si no tienes datos propios.
+      </p>
+<!-- HERO SVG: delta medido -> playbook .md -> injeção no modelo -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mb-8 overflow-hidden">
+<svg aria-label="El delta medido entre los modelos se convierte en reglas en un playbook .md, que se inyecta por tres canales (hook, skill, CLAUDE.md) en el modelo en cada sesión" class="w-full h-auto" role="img" viewbox="0 0 1000 240">
+<defs>
+<lineargradient id="t3h-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop></lineargradient>
+<filter height="180%" id="t3h-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="t3h-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.12" r="1.3"></circle></pattern>
+<marker id="t3h-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+<marker id="t3h-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#t3h-grid)" height="240" width="1000" x="0" y="0"></rect>
+<!-- delta medido -->
+<rect fill="#1a1230" height="68" rx="14" stroke="#c084fc" stroke-width="2" width="166" x="34" y="86"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="117" y="114">delta medido</text>
+<text fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="117" y="135">+45 pts · cifras</text>
+<path d="M200,120 L300,120" fill="none" marker-end="url(#t3h-ah)" opacity="0.55" stroke="#c084fc" stroke-width="1.8"></path>
+<!-- playbook .md (caixa-foco) -->
+<g filter="url(#t3h-glow)"><rect fill="#1a1230" height="80" rx="14" stroke="url(#t3h-grad)" stroke-width="2.5" width="180" x="300" y="80"></rect></g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="17" font-weight="700" text-anchor="middle" x="390" y="110">playbook.md</text>
+<text fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="390" y="132">reglas accionables</text>
+<text fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="390" y="149">ordenadas por fuerza</text>
+<!-- três canais de injeção -->
+<g fill="none" opacity="0.5" stroke="#38bdf8" stroke-width="1.8">
+<path d="M480,108 C560,108 580,58 640,58" marker-end="url(#t3h-ahc)"></path>
+<path d="M480,120 L640,120" marker-end="url(#t3h-ahc)"></path>
+<path d="M480,132 C560,132 580,182 640,182" marker-end="url(#t3h-ahc)"></path>
+</g>
+<g font-family="Inter,sans-serif" font-size="13" font-weight="600">
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="150" x="640" y="42"></rect><text fill="#bfe6ff" text-anchor="middle" x="715" y="63">hook SessionStart</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="150" x="640" y="104"></rect><text fill="#bfe6ff" text-anchor="middle" x="715" y="125">skill (bajo demanda)</text></g>
+<g class="wf-a"><rect fill="#0e1b26" height="32" rx="9" stroke="#38bdf8" stroke-width="2" width="150" x="640" y="166"></rect><text fill="#bfe6ff" text-anchor="middle" x="715" y="187">CLAUDE.md</text></g>
+</g>
+<g fill="none" opacity="0.5" stroke="#38bdf8" stroke-width="1.8">
+<path d="M790,58  C860,58 870,120 900,120" marker-end="url(#t3h-ahc)"></path>
+<path d="M790,120 L900,120" marker-end="url(#t3h-ahc)"></path>
+<path d="M790,182 C860,182 870,120 900,120" marker-end="url(#t3h-ahc)"></path>
+</g>
+<!-- modelo -->
+<g filter="url(#t3h-glow)"><rect fill="#1a1230" height="68" rx="14" stroke="url(#t3h-grad)" stroke-width="2" width="76" x="900" y="86"></rect></g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="938" y="118">Opus</text>
+<text fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="938" y="136">el objetivo</text>
+</svg>
+</div>
+<div class="grid grid-cols-4 gap-4 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">2</div><div class="text-xs text-neutral-400">Módulos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">12</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">~55 min</div><div class="text-xs text-neutral-400">Duración</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Aplicado</div><div class="text-xs text-neutral-400">Nivel</div></div>
+</div>
+</div>
+</header>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- PROGRESSO DA TRILHA -->
+<section class="mb-12">
+<div aria-label="Progreso de la ruta 3" aria-valuemax="100" aria-valuemin="0" class="inema-meter bg-dark-800 border border-dark-600 rounded-xl p-5 max-w-md" data-inema-meter="trilha:3" role="progressbar">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm text-neutral-400">Progreso de la Ruta 3</span>
+<span class="text-purple-400 font-bold" data-inema-meter-pct="">0%</span>
+</div>
+<div class="inema-bar"><div class="inema-bar__fill" data-inema-meter-fill=""></div></div>
+<span class="text-xs text-neutral-500" data-inema-meter-frac="">0 de 0</span>
+</div>
+</section>
+<!-- MAPA DA TRILHA -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Mapa de la ruta</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold text-sm">3.1</span>
+<span class="text-xs text-neutral-500">~25 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">📝 Escribir el Playbook</h3>
+<p class="text-xs text-neutral-400">El número se convierte en regla</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-2">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold text-sm">3.2</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">💉 Inyectando en el Modelo</h3>
+<p class="text-xs text-neutral-400">Hook, skill o CLAUDE.md</p>
+</a>
+</div>
+</section>
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- MÓDULO 3.1 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" data-inema-module="3-1" data-inema-track="3" id="modulo-3-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold">3.1</span>
+<span class="text-xs text-neutral-500">~25 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">📝 Escribir el Playbook</h3>
+<p class="text-neutral-400 text-sm">Del número a la regla: qué es un playbook, el generador, el orden según la fuerza de la señal, corregir en vez de copiar, las reglas transferibles y la lista de verificación de una línea.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t31-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">📜</span>
+<div><span class="font-medium">Qué es un playbook</span><span class="text-neutral-500 text-sm ml-2">- un .md de reglas, no narrativa</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t31-1">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Un único <code class="font-mono text-purple-400">.md</code> procesable que captura el delta como <strong>REGLAS</strong> ("piensa antes de actuar"), no como impresión o relato de video.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">La regla se puede inyectar; la impresión, no. El playbook es el artefacto que entra en el contexto del modelo.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">1 archivo; instrucciones imperativas; números reales incorporados; honestidad sobre lo que NO se transfiere.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t31-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">⚙️</span>
+<div><span class="font-medium">make_playbook.py</span><span class="text-neutral-500 text-sm ml-2">- se genera a partir de compare.json</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t31-2">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El generador: lee el <code class="font-mono text-purple-400">compare.json</code> (<code class="font-mono text-purple-400">--from-json</code>) o se mide en el momento, y se insertan los NÚMEROS reales en el texto de las reglas.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es lo que garantiza que el playbook hable de TUS datos, no de impresiones genéricas.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm"><code class="font-mono text-purple-400">--from-json</code> reutiliza la medición; sin él, mide el historial; números incorporados.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t31-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">📶</span>
+<div><span class="font-medium">Ordenar por fuerza de la señal</span><span class="text-neutral-500 text-sm ml-2">- pensar antes primero</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t31-3">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Las reglas vienen en orden según la FUERZA medida: pensar antes de actuar (delta robusto, <strong>+45 pts</strong>) primero; leer antes de editar y probar después quedan como buenas prácticas.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">El orden comunica prioridad: la regla al inicio es la palanca más importante.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Fuerza ≠ orden del video; delta firme al principio; muestra pequeña → cautela con el resto.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t31-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🔄</span>
+<div><span class="font-medium">Corregir, no copiar</span><span class="text-neutral-500 text-sm ml-2">- invierte los hábitos débiles</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t31-4">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El playbook honesto INVIERTE los hábitos débiles de Fable (pensar demasiado en lo trivial, verbosidad, un plan que se convierte en ensayo) en vez de replicarlos.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Copiar a ciegas también importa los defectos; corregir importa solo lo que ayuda.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Razonamiento proporcional a la dificultad; actúa y resume brevemente; plan conciso.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t31-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🧭</span>
+<div><span class="font-medium">Las reglas transferibles</span><span class="text-neutral-500 text-sm ml-2">- la secuencia canónica</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t31-5">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Pensar antes en lo no trivial; herramienta con propósito (densidad); leer antes de editar → 100%; cerrar el ciclo con una prueba/build; secuencia canónica; detenerse cuando sea suficiente.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Son las instrucciones que adopta el modelo objetivo — el corazón del playbook.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">entender → planificar → leer → editar → probar → informar.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t31-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">✅</span>
+<div><span class="font-medium">La lista de verificación de una línea</span><span class="text-neutral-500 text-sm ml-2">- pégalo al inicio de las tareas</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t31-6">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">La destilación final en una línea, para pegar al inicio de las tareas de código: <code class="font-mono text-purple-400">entender → plano curto → ler → editar → testar → relatar</code>.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es el recordatorio mínimo que cabe en cualquier prompt sin costo de contexto.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">piensa antes de lo no trivial · herramienta con propósito · read-before-edit→100% · sin verbosidad.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-1')">Ver en modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-1.html">Ver completo</a>
+</div>
+</div>
+<!-- MÓDULO 3.2 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" data-inema-module="3-2" data-inema-track="3" id="modulo-3-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2">
+<span class="text-purple-400 font-bold">3.2</span>
+<span class="text-xs text-neutral-500">~30 min</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">💉 Inyectando en el Modelo (y sin datos propios)</h3>
+<p class="text-neutral-400 text-sm">Hook, skill o CLAUDE.md; el plan B con traces abiertos en Hugging Face; qué se transfiere y qué no; y la ética de cerrar el ciclo.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button aria-controls="t32-1" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🪝</span>
+<div><span class="font-medium">Hook SessionStart</span><span class="text-neutral-500 text-sm ml-2">- se inyecta en cada sesión</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t32-1">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">O <code class="font-mono text-purple-400">inject-playbook.sh</code> inyecta el playbook como <code class="font-mono text-purple-400">additionalContext</code> en cada sesión; config en el <code class="font-mono text-purple-400">settings.json</code>; es fail-open.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es el camino «siempre activo, sin pensar» — el modelo ya empieza con el ritmo correcto.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">evento <code class="font-mono text-purple-400">SessionStart</code>; additionalContext; fail-open (no interrumpe la sesión).</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t32-2" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">🧩</span>
+<div><span class="font-medium">Convertir en skill</span><span class="text-neutral-500 text-sm ml-2">- fable-mindset bajo demanda</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t32-2">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">La skill <code class="font-mono text-purple-400">fable-mindset</code> carga el playbook bajo demanda e incluye los scripts, para cuando prefieres invocarlo explícitamente.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">No siempre quieres el playbook en TODAS las sesiones; la skill te da el control.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">bajo demanda; scripts incluidos; invocación explícita.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t32-3" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">📄</span>
+<div><span class="font-medium">CLAUDE.md</span><span class="text-neutral-500 text-sm ml-2">- el camino más sencillo</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t32-3">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Pegar o enlazar el playbook en el <code class="font-mono text-purple-400">CLAUDE.md</code> — ya se autoinyecta en cada sesión. Esfuerzo mínimo.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Versionado junto con el repo y sin configuración de hooks.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">hook = siempre activo / skill = bajo demanda / CLAUDE.md = mínimo esfuerzo.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t32-4" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🤗</span>
+<div><span class="font-medium">¿Sin datos de Fable?</span><span class="text-neutral-500 text-sm ml-2">- traces abiertos en HF</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t32-4">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Si casi no has conversado con Fable, usa trazas abiertas en Hugging Face: <code class="font-mono text-purple-400">Glint-Research/Fable-5-traces</code>. O <code class="font-mono text-purple-400">import_hf_traces.py</code> (+ <code class="font-mono text-purple-400">pip install datasets</code>) hace el mismo ejercicio.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Nadie queda fuera por falta de historial: el método funciona con datos de terceros.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">dataset abierto; importador defensivo; mismo ejercicio conductual.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t32-5" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🎚️</span>
+<div><span class="font-medium">Qué transfiere y qué NO</span><span class="text-neutral-500 text-sm ml-2">- ritmo, no pesos</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t32-5">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Imitas el RITMO (pensar antes, leer antes de editar, cerrar el ciclo), no clonas el modelo: el poder está en los pesos. El playbook mejora la ejecución, no te convierte en Fable.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Ajusta las expectativas: una mejora real del ritmo, sin promesas mágicas.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">el ritmo se transfiere; los pesos no; la ejecución mejora, la identidad no cambia.</p></div>
+</div>
+</div>
+</div>
+<div class="topic-item">
+<button aria-controls="t32-6" aria-expanded="false" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">⚖️</span>
+<div><span class="font-medium">Ética y generalización</span><span class="text-neutral-500 text-sm ml-2">- itera con datos nuevos</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4" id="t32-6">
+<div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Ejecuta en TU historial; trata el corpus como sensible (contiene tu código y tus datos); el método se aplica a Opus, Codex y al código abierto; itera el playbook con datos nuevos.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Cierra el ciclo con responsabilidad y mantiene vivo el playbook.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">corpus sensible; generaliza entre modelos; iteración continua.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-2')">Ver en modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-2.html">Ver completo</a>
+</div>
+</div>
+<!-- CTA INEMA.CLUB -->
+<section class="mb-8">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8 text-center">
+<h2 class="text-2xl font-bold mb-3">El ciclo se cierra aquí</h2>
+<p class="text-neutral-300 mb-6 max-w-2xl mx-auto inema-prose">Este curso es parte de la comunidad INEMA.CLUB — investigación, educación y experimentos con IA aplicada. Del log al playbook inyectado, el método es tuyo.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a class="px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-semibold transition-colors" href="modulo-3-1.html">Empezar por el Módulo 3.1 →</a>
+<a class="px-6 py-3 bg-dark-700 hover:bg-dark-600 text-sky-400 rounded-lg font-semibold transition-colors" href="https://inema.club" rel="noopener" target="_blank">Visitar INEMA.CLUB</a>
+</div>
+</div>
+</section>
+<!-- NAVEGAÇÃO ENTRE TRILHAS -->
+<div class="flex flex-col sm:flex-row gap-4 mt-10">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="../trilha2/index.html">← Ruta 2: Manos a la obra</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="../../index.html">Volver a la página de inicio →</a>
+</div>
+</div>
+</main>
+<!-- MODAIS -->
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.1</span><span class="font-semibold">Cómo escribir el Playbook</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-1.html" title="Módulo 3.1"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.2</span><span class="font-semibold">Inyectar en el modelo (y sin datos propios)</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-2.html" title="Módulo 3.2"></iframe>
+</div>
+</div>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p>Fable Lite · <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a> · 2026</p>
+</div>
+</footer>
+<script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800') || document;
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => { if (exp !== explanation) { exp.classList.remove('active'); const b = exp.closest('.topic-item')?.querySelector('button'); if (b) b.setAttribute('aria-expanded','false'); } });
+      const willOpen = !explanation.classList.contains('active');
+      explanation.classList.toggle('active');
+      button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    function openModal(modalId) { const m = document.getElementById(modalId); if (m) { m.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden')); document.body.style.overflow = 'auto'; }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    (function () {
+      const themeToggle = document.getElementById('theme-toggle');
+      const darkIcon = document.getElementById('theme-toggle-dark-icon');
+      const lightIcon = document.getElementById('theme-toggle-light-icon');
+      const html = document.documentElement;
+      function sync() { const isDark = html.classList.contains('dark'); darkIcon.classList.toggle('hidden', !isDark); lightIcon.classList.toggle('hidden', isDark); }
+      sync();
+      themeToggle.addEventListener('click', () => {
+        const goDark = !html.classList.contains('dark');
+        if (window.INEMA && INEMA.setPref) INEMA.setPref('theme', goDark ? 'inema-dark' : 'claro');
+        else { html.classList.toggle('dark'); localStorage.setItem('theme', goDark ? 'dark' : 'light'); }
+        sync();
+      });
+      document.addEventListener('inema:progress', sync);
+    })();
+  </script>
+<script src="../../../assets/learn.js"></script>
+<script>if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }</script>
+</body>
+</html>
