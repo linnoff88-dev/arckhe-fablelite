@@ -1,4 +1,4 @@
-# _KIT.md — Build Kit do curso "Fable Lite" (INEMA.CLUB v2)
+# _KIT.md — Build Kit do curso "Fable Lite" (ARCKHÉ AI v2)
 
 > **Para os agentes de Trilha 2 e Trilha 3.** A Trilha 1 (fundação) já está pronta.
 > Você DEVE ser idêntico a ela: mesmo `<head>`, mesmo manifesto, mesmo nav, mesmo
@@ -18,7 +18,7 @@
 ## 0. Regras de OURO (não negociáveis)
 
 1. **Caminhos relativos, NUNCA absolutos.** O site é servido em sub-path:
-   `https://inematds.github.io/fablelite/`. Profundidade por página:
+   `https://linnoff88-dev.github.io/ Profundidade por página:
    - **Landing** (`/index.html`): assets = `assets/...`, links = `curso/trilhaX/...`.
    - **Index de trilha** (`/curso/trilhaX/index.html`): assets = `../../assets/...`,
      landing = `../../index.html`, irmãs = `../trilhaY/index.html`, módulos = `modulo-X-Y.html`.
@@ -46,7 +46,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="inema-course" content="fable-lite">
+  <meta name="ARCKHÉ-course" content="fable-lite">
   <title>[TÍTULO DA PÁGINA] | Fable Lite</title>
 
   <!-- ANTI-FOUC: script BLOQUEANTE, ANTES do Tailwind e de qualquer <style>/<link> -->
@@ -54,22 +54,22 @@
   (function () {
     try {
       var html = document.documentElement;
-      var DEF = { theme: 'inema-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
+      var DEF = { theme: 'ARCKHÉ-dark', font: 'inter', fontScale: 100, lineWidth: 68, leading: 1.7, accent: 'emerald' };
       function clone(o) { var r = {}; for (var x in o) r[x] = o[x]; return r; }
       var p = clone(DEF);
       try {
-        var raw = localStorage.getItem('inema.prefs');
+        var raw = localStorage.getItem('ARCKHÉ.prefs');
         if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') { for (var k in DEF) if (parsed[k] != null) p[k] = parsed[k]; } }
-        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'inema-dark'; }
+        else { var legacy = localStorage.getItem('theme'); if (legacy === 'light') p.theme = 'claro'; else if (legacy === 'dark') p.theme = 'ARCKHÉ-dark'; }
       } catch (e) { p = clone(DEF); }
-      var THEMES = { 'inema-dark':{dark:true,attr:null,cs:'dark'},'claro':{dark:false,attr:null,cs:'light'},'sepia':{dark:false,attr:'sepia',cs:'light'},'foco':{dark:null,attr:'foco',cs:null},'contraste':{dark:true,attr:'contraste',cs:'dark'} };
-      var t = THEMES[p.theme] || THEMES['inema-dark'];
+      var THEMES = { 'ARCKHÉ-dark':{dark:true,attr:null,cs:'dark'},'claro':{dark:false,attr:null,cs:'light'},'sepia':{dark:false,attr:'sepia',cs:'light'},'foco':{dark:null,attr:'foco',cs:null},'contraste':{dark:true,attr:'contraste',cs:'dark'} };
+      var t = THEMES[p.theme] || THEMES['ARCKHÉ-dark'];
       if (t.dark === true) html.classList.add('dark'); else if (t.dark === false) html.classList.remove('dark');
       if (t.attr) html.setAttribute('data-theme', t.attr); else html.removeAttribute('data-theme');
       html.style.colorScheme = (t.cs ? t.cs : (html.classList.contains('dark') ? 'dark' : 'light'));
       html.setAttribute('data-font', p.font || 'inter'); html.setAttribute('data-accent', p.accent || 'emerald');
       var s = html.style; var scale = (+p.fontScale || 100);
-      s.setProperty('--inema-font-scale', (scale/100).toString()); s.setProperty('font-size', scale + '%');
+      s.setProperty('--ARCKHÉ-font-scale', (scale/100).toString()); s.setProperty('font-size', scale + '%');
       s.setProperty('--measure', (+p.lineWidth || 68) + 'ch'); s.setProperty('--lh-body', (+p.leading || 1.7).toString());
       var fam = p.font === 'system' ? 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' : (p.font === 'leitura' ? '"Atkinson Hyperlegible", "Inter", system-ui, sans-serif' : '"Inter", system-ui, sans-serif');
       s.setProperty('--font-body', fam);
@@ -81,7 +81,7 @@
   </script>
 
   <!-- MANIFESTO DO CURSO (idêntico em TODAS as páginas — ver §2) -->
-  <script type="application/json" data-inema-manifest>
+  <script type="application/json" data-ARCKHÉ-manifest>
   { ...COLE O JSON DA §2 AQUI... }
   </script>
 
@@ -178,10 +178,10 @@
 }
 ```
 
-- `topics` é a CONTAGEM de `[data-inema-topic]` reais do módulo. Como cada módulo tem
+- `topics` é a CONTAGEM de `[data-ARCKHÉ-topic]` reais do módulo. Como cada módulo tem
   6 tópicos, `topics: 6` em todos. **Se você mudar o nº de tópicos, atualize o manifesto
   em TODAS as páginas** (e ele tem que bater com o DOM, senão o % do curso fica errado — Erro #28).
-- `course` casa com `<meta name="inema-course" content="fable-lite">`. `n`/`id` casam com `data-inema-track`/`data-inema-module`.
+- `course` casa com `<meta name="ARCKHÉ-course" content="fable-lite">`. `n`/`id` casam com `data-ARCKHÉ-track`/`data-ARCKHÉ-module`.
 
 ---
 
@@ -196,7 +196,7 @@
           <span class="text-2xl">✨</span><span class="font-bold text-lg hidden sm:inline">Fable Lite</span>
         </a>
         <span class="text-neutral-600">|</span>
-        <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        <a href="https://ARCKHÉ AI" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium">ARCKHÉ AI</a>
       </div>
       <div class="flex items-center space-x-1 sm:space-x-2">
         <!-- 3 botões de trilha. O DA PÁGINA ATUAL fica ativo: text-COR-400 bg-COR-500/10. Os outros: text-neutral-400 hover:text-COR-400 hover:bg-COR-500/10 transition-colors -->
@@ -209,12 +209,12 @@
         <a href="REL_T3" class="px-3 py-1.5 rounded-lg text-sm font-semibold {ATIVO? text-purple-400 bg-purple-500/10 : text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors}">
           <span class="sm:hidden">T3</span><span class="hidden sm:inline">Do Delta ao Playbook</span>
         </a>
-        <button type="button" data-inema-journey-open class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 transition-colors text-sm">
+        <button type="button" data-ARCKHÉ-journey-open class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-neutral-300 hover:text-neutral-100 transition-colors text-sm">
           <span aria-hidden="true">◷</span><span>Minha jornada</span>
-          <span class="inema-journey-badge hidden" data-inema-journey-badge data-count="0" aria-hidden="true"></span>
+          <span class="ARCKHÉ-journey-badge hidden" data-ARCKHÉ-journey-badge data-count="0" aria-hidden="true"></span>
         </button>
-        <button type="button" data-inema-appearance-toggle="[data-inema-appearance]" aria-expanded="false" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" title="Aparência"><span aria-hidden="true">◑</span></button>
-        <div data-inema-appearance class="inema-appearance-pop"></div>
+        <button type="button" data-ARCKHÉ-appearance-toggle="[data-ARCKHÉ-appearance]" aria-expanded="false" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" title="Aparência"><span aria-hidden="true">◑</span></button>
+        <div data-ARCKHÉ-appearance class="ARCKHÉ-appearance-pop"></div>
         <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors" title="Tema claro/escuro">
           <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
           <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
@@ -237,26 +237,26 @@
 
 ---
 
-## 4. RODAPÉ + CTA INEMA.CLUB
+## 4. RODAPÉ + CTA ARCKHÉ AI
 
 **Rodapé (toda página):**
 ```html
 <footer class="border-t border-dark-600 py-8">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
-    <p>Fable Lite · <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> · 2026</p>
+    <p>Fable Lite · <a href="https://ARCKHÉ AI" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300">ARCKHÉ AI</a> · 2026</p>
   </div>
 </footer>
 ```
 
-**CTA INEMA.CLUB (use na landing e onde fizer sentido fechar um bloco) — troque emerald pela cor da trilha:**
+**CTA ARCKHÉ AI (use na landing e onde fizer sentido fechar um bloco) — troque emerald pela cor da trilha:**
 ```html
 <section class="mb-8">
   <div class="bg-gradient-to-br from-COR-900/40 via-dark-800 to-dark-800 rounded-xl border border-COR-500/30 p-8 text-center">
     <h2 class="text-2xl font-bold mb-3">[CHAMADA]</h2>
-    <p class="text-neutral-300 mb-6 max-w-2xl mx-auto inema-prose">Este curso é parte da comunidade INEMA.CLUB — pesquisa, educação e experimentos com IA aplicada.</p>
+    <p class="text-neutral-300 mb-6 max-w-2xl mx-auto ARCKHÉ-prose">Este curso é parte da comunidade ARCKHÉ AI — pesquisa, educação e experimentos com IA aplicada.</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a href="[PRÓXIMO]" class="px-6 py-3 bg-COR-600 hover:bg-COR-500 text-white rounded-lg font-semibold transition-colors">[AÇÃO] →</a>
-      <a href="https://inema.club" target="_blank" rel="noopener" class="px-6 py-3 bg-dark-700 hover:bg-dark-600 text-sky-400 rounded-lg font-semibold transition-colors">Visitar INEMA.CLUB</a>
+      <a href="https://ARCKHÉ AI" target="_blank" rel="noopener" class="px-6 py-3 bg-dark-700 hover:bg-dark-600 text-sky-400 rounded-lg font-semibold transition-colors">Visitar ARCKHÉ AI</a>
     </div>
   </div>
 </section>
@@ -264,7 +264,7 @@
 
 ---
 
-## 5. learn.js + INEMA.init() (FIM do `<body>`, depois do JS-núcleo v1)
+## 5. learn.js + ARCKHÉ.init() (FIM do `<body>`, depois do JS-núcleo v1)
 
 **5.1 — JS-núcleo v1 (cole ANTES do learn.js; igual em todas as páginas):**
 ```html
@@ -290,11 +290,11 @@
     sync();
     themeToggle.addEventListener('click', () => {
       const goDark = !html.classList.contains('dark');
-      if (window.INEMA && INEMA.setPref) INEMA.setPref('theme', goDark ? 'inema-dark' : 'claro');
+      if (window.ARCKHÉ && ARCKHÉ.setPref) ARCKHÉ.setPref('theme', goDark ? 'ARCKHÉ-dark' : 'claro');
       else { html.classList.toggle('dark'); localStorage.setItem('theme', goDark ? 'dark' : 'light'); }
       sync();
     });
-    document.addEventListener('inema:progress', sync);
+    document.addEventListener('ARCKHÉ:progress', sync);
   })();
 </script>
 ```
@@ -302,7 +302,7 @@
 **5.2 — Camada de aprendizagem (cole por último; REL = `assets` na landing, `../../assets` em trilha/módulo):**
 ```html
 <script src="REL/assets/learn.js"></script>
-<script>if (window.INEMA && typeof window.INEMA.init === 'function') { window.INEMA.init(); }</script>
+<script>if (window.ARCKHÉ && typeof window.ARCKHÉ.init === 'function') { window.ARCKHÉ.init(); }</script>
 ```
 > `init()` é idempotente, feature-detect (só ativa o que tem `data-*`), e modo-efêmero se storage bloqueado.
 
@@ -324,7 +324,7 @@
 - **SVGs:** primária = cor da trilha (tabela), secundária = **ciano `#38bdf8`** SEMPRE.
 - **Ciano `#38bdf8` é constante** (agentes / ramo paralelo / fluxo de volta) — não troca.
 
-**Cor fixa em qualquer trilha:** primary/yellow `#FACC15` (logo/dicas), sky `text-sky-400` (INEMA.CLUB), red `text-red-400` (não-fazer).
+**Cor fixa em qualquer trilha:** primary/yellow `#FACC15` (logo/dicas), sky `text-sky-400` (ARCKHÉ AI), red `text-red-400` (não-fazer).
 
 ---
 
@@ -354,8 +354,8 @@
   3. Injetar via skill · 4. Injetar via CLAUDE.md · 5. **Sem dados próprios:** `import_hf_traces.py` + dataset `Glint-Research/Fable-5-traces` (HF) · 6. Medir o efeito (o loop fecha).
 
 **Cada módulo:** 500-800 linhas, 6 seções ricas com VARIEDADE (≥2 grids ✓/✗, ≥1 timeline,
-≥2 tip boxes, ≥1 code/mono box), **≥1 SVG futurista inline**, TOC+scrollspy, `data-inema-read-toggle`
-por seção, `data-inema-doubt-toggle` por tópico, `data-inema-block` na prosa, resumo final + navegação.
+≥2 tip boxes, ≥1 code/mono box), **≥1 SVG futurista inline**, TOC+scrollspy, `data-ARCKHÉ-read-toggle`
+por seção, `data-ARCKHÉ-doubt-toggle` por tópico, `data-ARCKHÉ-block` na prosa, resumo final + navegação.
 
 ---
 
@@ -371,50 +371,50 @@ por seção, `data-inema-doubt-toggle` por tópico, `data-inema-block` na prosa,
   são boa prática medida por heurística conservadora, não delta robusto.
 
 **Links a citar:** `scripts/` (este repo, README em `scripts/README.md`) · dataset aberto
-`Glint-Research/Fable-5-traces` → `https://huggingface.co/datasets/Glint-Research/Fable-5-traces` · `https://inema.club`.
+`Glint-Research/Fable-5-traces` → `https://huggingface.co/datasets/Glint-Research/Fable-5-traces` · `https://ARCKHÉ AI`.
 
 ---
 
-## 9. Convenção `data-inema-*` (contrato de ancoragem — NÃO improvise IDs)
+## 9. Convenção `data-ARCKHÉ-*` (contrato de ancoragem — NÃO improvise IDs)
 
 ```html
 <!-- meta no <head> de TODA página -->
-<meta name="inema-course" content="fable-lite">
+<meta name="ARCKHÉ-course" content="fable-lite">
 
 <!-- HEADER do módulo (ou card exterior) -->
-<header id="modulo-X-Y" data-inema-module="X-Y" data-inema-track="N"> … </header>
+<header id="modulo-X-Y" data-ARCKHÉ-module="X-Y" data-ARCKHÉ-track="N"> … </header>
 
 <!-- cada SEÇÃO de tópico no módulo completo -->
-<section id="topico-N" data-inema-topic="modulo-X-Y#topico-N"> … </section>
+<section id="topico-N" data-ARCKHÉ-topic="modulo-X-Y#topico-N"> … </section>
 
 <!-- prosa anotável (mX-Y-tN-pK = módulo-tópico-parágrafo, determinístico) -->
-<p data-inema-block="mX-Y-tN-pK"> … </p>
+<p data-ARCKHÉ-block="mX-Y-tN-pK"> … </p>
 
 <!-- marcar lido (justify-start! Erro #1 e #20) -->
 <div class="flex justify-start mt-6">
-  <button type="button" data-inema-read-toggle aria-pressed="false"
+  <button type="button" data-ARCKHÉ-read-toggle aria-pressed="false"
     class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-COR-500/20 border border-COR-500/30 text-COR-400 hover:bg-COR-500/30 transition-colors">
-    <span class="inema-read-icon" aria-hidden="true">○</span><span class="inema-read-label">Marcar como lido</span>
+    <span class="ARCKHÉ-read-icon" aria-hidden="true">○</span><span class="ARCKHÉ-read-label">Marcar como lido</span>
   </button>
 </div>
 
 <!-- dúvida rápida (no header do tópico) -->
-<button type="button" data-inema-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"
+<button type="button" data-ARCKHÉ-doubt-toggle aria-pressed="false" title="Marcar dúvida neste tópico"
   class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-dark-700 border border-dark-600 text-neutral-300 hover:bg-dark-600 transition-colors text-sm">
   <span aria-hidden="true">?</span><span>Tenho dúvida</span></button>
 
 <!-- medidores: escopo curso | trilha:N | modulo:X-Y -->
-<div data-inema-meter="modulo:X-Y" class="inema-meter ..." role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="...">
-  <span data-inema-meter-pct>0%</span>
-  <div class="inema-bar"><div class="inema-bar__fill" data-inema-meter-fill></div></div>
-  <span data-inema-meter-frac>0 de 0</span>
+<div data-ARCKHÉ-meter="modulo:X-Y" class="ARCKHÉ-meter ..." role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="...">
+  <span data-ARCKHÉ-meter-pct>0%</span>
+  <div class="ARCKHÉ-bar"><div class="ARCKHÉ-bar__fill" data-ARCKHÉ-meter-fill></div></div>
+  <span data-ARCKHÉ-meter-frac>0 de 0</span>
 </div>
 
 <!-- TOC + scrollspy (módulo) -->
-<nav data-inema-toc aria-label="Índice da página">…<span data-inema-section-counter>1 de 6</span>… <a href="#topico-1" class="inema-toc-link">…</a></nav>
+<nav data-ARCKHÉ-toc aria-label="Índice da página">…<span data-ARCKHÉ-section-counter>1 de 6</span>… <a href="#topico-1" class="ARCKHÉ-toc-link">…</a></nav>
 ```
 
-**Regras:** `data-inema-topic` é o id ESTÁVEL (não muda com layout/tema). IDs do módulo no
+**Regras:** `data-ARCKHÉ-topic` é o id ESTÁVEL (não muda com layout/tema). IDs do módulo no
 manifesto = `X-Y` (ex.: `2-1`), tópicos = `modulo-X-Y#topico-N`. Os accordions do INDEX
 mantêm `onclick="toggleTopic(this)"` + `aria-expanded`/`aria-controls`.
 
@@ -425,7 +425,7 @@ mantêm `onclick="toggleTopic(this)"` + `aria-expanded`/`aria-controls`.
 - [ ] **#1** Botões de ação (módulo/read-toggle) em `flex justify-start` (nunca `justify-center space-x`).
 - [ ] **#2** Números em círculo nos tópicos (nunca `▶`/seta).
 - [ ] **#3/#11** 6 tópicos por módulo; cada tópico-card com 3 seções (O que é/Por que/Conceitos).
-- [ ] **#4** INEMA.CLUB `text-sky-400` em toda página.
+- [ ] **#4** ARCKHÉ AI `text-sky-400` em toda página.
 - [ ] **#5** Light-mode CSS completo (base + acento da trilha + sem gradiente + especiais + nav).
 - [ ] **#6/#9** Título de módulo `text-2xl font-bold`; todos os cards do index com tópicos expansíveis.
 - [ ] **#10** Cada card do index com `<a href="modulo-X-Y.html">Ver Completo</a>`.
@@ -436,12 +436,12 @@ mantêm `onclick="toggleTopic(this)"` + `aria-expanded`/`aria-controls`.
 - [ ] **#16** Divisor "Conteúdo detalhado" = h2 simples.
 - [ ] **#17** ≥1 SVG futurista inline por módulo + 1 hero SVG no index (cor da trilha + ciano, `role="img"`+`aria-label`, glow só na caixa-foco, `html:not(.dark) svg[role="img"]{filter:...}`).
 - [ ] **#18** Anti-FOUC bloqueante separado no topo do `<head>`, acima do Tailwind, try/catch, default dark.
-- [ ] **#19** `data-inema-course`/`-module`/`-track`/`-topic`/`-block` estáveis.
+- [ ] **#19** `data-ARCKHÉ-course`/`-module`/`-track`/`-topic`/`-block` estáveis.
 - [ ] **#20** Marcar-lido `<button aria-pressed>` + `justify-start` + teclado.
-- [ ] **#21/#28** Manifesto idêntico em TODA página; `topics` bate com os `data-inema-topic` reais; medidores curso/trilha/módulo.
+- [ ] **#21/#28** Manifesto idêntico em TODA página; `topics` bate com os `data-ARCKHÉ-topic` reais; medidores curso/trilha/módulo.
 - [ ] **#22** Export/import via learn.js (não recriar; só plugar a jornada).
 - [ ] **#23** Contraste por tema; ambar nunca como TEXTO em superfície clara; bridge de chrome via learn.css carregada.
-- [ ] **#24** Highlight via learn.js (TreeWalker) — só plugar `data-inema-block`.
+- [ ] **#24** Highlight via learn.js (TreeWalker) — só plugar `data-ARCKHÉ-block`.
 - [ ] **#25** `scroll-margin-top` nos `[id]`; jornada (learn.js) com foco preso.
 - [ ] **#26** Modo efêmero garantido pelo learn.js (não quebra sem storage).
 - [ ] **#27** `@media (prefers-reduced-motion)` nos SVGs animados.
@@ -451,4 +451,4 @@ mantêm `onclick="toggleTopic(this)"` + `aria-expanded`/`aria-controls`.
 
 **Fundação entregue:** `index.html` (landing), `assets/learn.css`, `assets/learn.js`,
 `curso/trilha1/index.html`, `curso/trilha1/modulo-1-1.html`, `curso/trilha1/modulo-1-2.html`.
-Copie a estrutura exata desses arquivos. Boa construção. — INEMA.CLUB
+Copie a estrutura exata desses arquivos. Boa construção. — ARCKHÉ AI

@@ -1,4 +1,4 @@
-﻿# Fable Lite ðŸ”¶
+# Fable Lite ðŸ”¶
 
 <div align="center">
   <img src="capa/logo.svg" alt="Arckhé AI" height="48" />
@@ -16,7 +16,7 @@ vocÃª usou. Este projeto extrai esse ritmo e o destila num playbook que vocÃ�
 injeta em qualquer modelo (Opus, Codex, open-source) para uma execuÃ§Ã£o mais
 disciplinada.
 
-ðŸŒ **Curso (INEMA.CLUB v2):** https://inematds.github.io/fablelite/
+ðŸŒ **Curso (ARCKHÉ AI v2):** https://linnoff88-dev.github.io/
 
 ---
 
@@ -65,7 +65,7 @@ python3 scripts/import_hf_traces.py --dataset Glint-Research/Fable-5-traces
 
 ```
 index.html              landing do curso (GitHub Pages)
-curso/trilhaN/          trilhas e mÃ³dulos (formato INEMA.CLUB v2)
+curso/trilhaN/          trilhas e mÃ³dulos (formato ARCKHÉ AI v2)
 scripts/                o pipeline (Python stdlib puro) + demo_session.jsonl
 prompts/PROMPTS.md      os 4 prompts PT-BR prontos pra colar
 playbook/               o playbook gerado + compare.json
@@ -78,7 +78,7 @@ skill/fable-mindset/    a skill empacotando a tÃ©cnica
 MÃ©todo inspirado na ideia de minerar os arquivos JSONL de sessÃ£o para imitar o
 "mindset" de um modelo. Dataset aberto de referÃªncia:
 [`Glint-Research/Fable-5-traces`](https://huggingface.co/datasets/Glint-Research/Fable-5-traces).
-Feito para o [INEMA.CLUB](https://inema.club).
+Feito para o [ARCKHÉ AI](https://ARCKHÉ AI).
 
 ---
 
