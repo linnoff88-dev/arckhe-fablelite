@@ -15,7 +15,7 @@ USO
     python extract_corpus.py --projects /caminho/para/projects
 
 SAÍDA (em --out, default ./corpus_<modelo>/)
-    transcript.md   transcrição leve só com os turnos do modelo
+    transcript.md   transcriçêo leve só com os turnos do modelo
     stats.json      todas as métricas medidas
     e um relatório legível impresso no terminal.
 """
@@ -69,7 +69,7 @@ def write_corpus(model: str, out_dir: str, projects_dir: str | None) -> None:
             session_lines.extend(lightweight_lines(turn))
         if session_lines:
             rel = os.path.relpath(path, os.path.expanduser("~/.claude/projects"))
-            chunks.append(f"\n\n========== SESSÃO: {rel} ==========\n")
+            chunks.append(f"\n\n========== SESSêO: {rel} ==========\n")
             chunks.extend(session_lines)
     with open(os.path.join(out_dir, "transcript.md"), "w", encoding="utf-8") as fh:
         fh.write("\n\n".join(chunks) + "\n")
@@ -86,7 +86,7 @@ def main() -> int:
     if args.list:
         models = discover_models(args.projects)
         if not models:
-            print("Nenhum turno de assistente encontrado. Os logs estão em ~/.claude/projects?")
+            print("Nenhum turno de assistente encontrado. Os logs estêo em ~/.claude/projects?")
             return 1
         print("Modelos no seu histórico (por nº de turnos):")
         for name, count in models.most_common():

@@ -1,4 +1,4 @@
-# Fable Lite ðŸ”¶
+# Fable Lite ê°Å¸âÂ¶
 
 <div align="center">
   <img src="capa/logo.svg" alt="Arckhé AI" height="48" />
@@ -6,17 +6,17 @@
 </div>
 
 
-> Garimpe o **raciocÃ­nio** dos modelos nos logs do Claude Code, meÃ§a como cada um
-> trabalha em **nÃºmeros reais**, e transforme o delta num **playbook** que faz o
+> Garimpe o **raciocêÂ­nio** dos modelos nos logs do Claude Code, meêÂ§a como cada um
+> trabalha em **nêÂºmeros reais**, e transforme o delta num **playbook** que faz o
 > Opus agir mais como o Fable 5.
 
-NÃ£o dÃ¡ pra clonar o poder do Fable 5 â€” esse poder estÃ¡ nos pesos do modelo. Mas
+NêÂ£o dêÂ¡ pra clonar o poder do Fable 5 ê¢â¬â esse poder estêÂ¡ nos pesos do modelo. Mas
 os seus logs do Claude Code guardam o **ritmo de trabalho** de cada modelo que
-vocÃª usou. Este projeto extrai esse ritmo e o destila num playbook que vocÃª
-injeta em qualquer modelo (Opus, Codex, open-source) para uma execuÃ§Ã£o mais
+vocêÂª usou. Este projeto extrai esse ritmo e o destila num playbook que vocêÂª
+injeta em qualquer modelo (Opus, Codex, open-source) para uma execuêÂ§êÂ£o mais
 disciplinada.
 
-ðŸŒ **Curso (ARCKHÉ AI v2):** https://linnoff88-dev.github.io/
+ê°Å¸ÅÂ **Curso (ARCKHê AI v2):** https://linnoff88-dev.github.io/
 
 ---
 
@@ -24,20 +24,20 @@ disciplinada.
 
 ```
 ~/.claude/projects/*.jsonl   (logs pesados)
-        â”‚
-        â–¼  debloat_jsonl.py         destila 1 sessÃ£o  â†’ transcriÃ§Ã£o leve (~74% menor)
-        â–¼  extract_corpus.py        filtra por message.model â†’ corpus + nÃºmeros
-        â–¼  compare_models.py        Fable-5 vs Opus-4.8 â†’ o delta de ritmo
-        â–¼  make_playbook.py         o delta â†’ playbook.md acionÃ¡vel
-        â–¼  hooks/inject-playbook.sh injeta no SessionStart (ou skill / CLAUDE.md)
+        ê¢ââ
+        ê¢âÂ¼  debloat_jsonl.py         destila 1 sessêÂ£o  ê¢â â transcriêÂ§êÂ£o leve (~74% menor)
+        ê¢âÂ¼  extract_corpus.py        filtra por message.model ê¢â â corpus + nêÂºmeros
+        ê¢âÂ¼  compare_models.py        Fable-5 vs Opus-4.8 ê¢â â o delta de ritmo
+        ê¢âÂ¼  make_playbook.py         o delta ê¢â â playbook.md acionêÂ¡vel
+        ê¢âÂ¼  hooks/inject-playbook.sh injeta no SessionStart (ou skill / CLAUDE.md)
 ```
 
-## InÃ­cio rÃ¡pido
+## InêÂ­cio rêÂ¡pido
 
 ```bash
 cd scripts
-python3 debloat_jsonl.py                         # vÃª o debloat (sessÃ£o de exemplo)
-python3 extract_corpus.py --list                 # quais modelos hÃ¡ no seu histÃ³rico?
+python3 debloat_jsonl.py                         # vêÂª o debloat (sessêÂ£o de exemplo)
+python3 extract_corpus.py --list                 # quais modelos hêÂ¡ no seu histêÂ³rico?
 python3 compare_models.py --a claude-fable-5 --b claude-opus-4-8 --out ../playbook/compare.json
 python3 make_playbook.py --from-json ../playbook/compare.json --out ../playbook/fable-mindset-playbook.md
 ```
@@ -48,37 +48,37 @@ pip install datasets
 python3 scripts/import_hf_traces.py --dataset Glint-Research/Fable-5-traces
 ```
 
-## Achados reais (medidos neste histÃ³rico)
+## Achados reais (medidos neste histêÂ³rico)
 
 | sinal | Fable-5 | Opus-4.8 | leitura |
 |---|---|---|---|
-| **% turnos que pensam antes de agir** | **99%** | 54% | **+45 pp â€” o sinal forte e transferÃ­vel** |
-| ferramentas/turno (mÃ©dia) | 6.57 | 7.86 | Fable foi mais econÃ´mico |
-| debloat | â€” | â€” | ~74% menor por sessÃ£o |
+| **% turnos que pensam antes de agir** | **99%** | 54% | **+45 pp ê¢â¬â o sinal forte e transferêÂ­vel** |
+| ferramentas/turno (mêÂ©dia) | 6.57 | 7.86 | Fable foi mais econêÂ´mico |
+| debloat | ê¢â¬â | ê¢â¬â | ~74% menor por sessêÂ£o |
 
-> **Honestidade:** o TEXTO do raciocÃ­nio nÃ£o fica nos logs (vem cifrado, sÃ³ a
-> `signature`). Mede-se a **presenÃ§a** do raciocÃ­nio por turno, nÃ£o o conteÃºdo.
-> E a amostra de Fable Ã© pequena (7 sessÃµes) â€” o delta de pensar-antes Ã© robusto;
-> `read-before-edit`/`test-after-edit` sÃ£o boa prÃ¡tica, nÃ£o delta firme.
+> **Honestidade:** o TEXTO do raciocêÂ­nio nêÂ£o fica nos logs (vem cifrado, sêÂ³ a
+> `signature`). Mede-se a **presenêÂ§a** do raciocêÂ­nio por turno, nêÂ£o o conteêÂºdo.
+> E a amostra de Fable êÂ© pequena (7 sessêÂµes) ê¢â¬â o delta de pensar-antes êÂ© robusto;
+> `read-before-edit`/`test-after-edit` sêÂ£o boa prêÂ¡tica, nêÂ£o delta firme.
 
 ## Estrutura
 
 ```
 index.html              landing do curso (GitHub Pages)
-curso/trilhaN/          trilhas e mÃ³dulos (formato ARCKHÉ AI v2)
+curso/trilhaN/          trilhas e mêÂ³dulos (formato ARCKHê AI v2)
 scripts/                o pipeline (Python stdlib puro) + demo_session.jsonl
 prompts/PROMPTS.md      os 4 prompts PT-BR prontos pra colar
 playbook/               o playbook gerado + compare.json
 hooks/                  inject-playbook.sh + como plugar no SessionStart
-skill/fable-mindset/    a skill empacotando a tÃ©cnica
+skill/fable-mindset/    a skill empacotando a têÂ©cnica
 ```
 
-## CrÃ©ditos
+## CrêÂ©ditos
 
-MÃ©todo inspirado na ideia de minerar os arquivos JSONL de sessÃ£o para imitar o
-"mindset" de um modelo. Dataset aberto de referÃªncia:
+MêÂ©todo inspirado na ideia de minerar os arquivos JSONL de sessêÂ£o para imitar o
+"mindset" de um modelo. Dataset aberto de referêÂªncia:
 [`Glint-Research/Fable-5-traces`](https://huggingface.co/datasets/Glint-Research/Fable-5-traces).
-Feito para o [ARCKHÉ AI](https://ARCKHÉ AI).
+Feito para o [ARCKHê AI](https://ARCKHê AI).
 
 ---
 

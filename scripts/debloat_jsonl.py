@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-debloat_jsonl.py — destila um arquivo de sessão do Claude Code numa
-transcrição LEVE.
+debloat_jsonl.py — destila um arquivo de sessêo do Claude Code numa
+transcriçêo LEVE.
 
-A gordura desses arquivos são os RESULTADOS de ferramenta, o conteúdo completo
+A gordura desses arquivos sêo os RESULTADOS de ferramenta, o conteúdo completo
 de arquivos e a saída de comandos ecoada de volta para o contexto. Este script
 mantém só o que importa:
 
@@ -22,10 +22,10 @@ USO
     python debloat_jsonl.py minha_sessao.jsonl   # roda num arquivo seu
     python debloat_jsonl.py s.jsonl -o limpa.md  # escolhe a saída
     python debloat_jsonl.py s.jsonl --no-thinking
-    python debloat_jsonl.py s.jsonl --no-open    # não tenta abrir no editor
+    python debloat_jsonl.py s.jsonl --no-open    # nêo tenta abrir no editor
 
 Sem argumentos, ele roda no demo_session.jsonl que mora ao lado deste script,
-imprime o tamanho antes/depois e abre a transcrição limpa — exatamente o
+imprime o tamanho antes/depois e abre a transcriçêo limpa — exatamente o
 fluxo do curso para você conferir o formato na primeira vez.
 """
 
@@ -40,7 +40,7 @@ from fable_lib import debloat_file, human_size
 
 
 def _open_in_editor(path: str) -> None:
-    """Abre o arquivo no $EDITOR / xdg-open, sem travar se não houver um."""
+    """Abre o arquivo no $EDITOR / xdg-open, sem travar se nêo houver um."""
     opener = os.environ.get("EDITOR")
     try:
         if opener:
@@ -52,21 +52,21 @@ def _open_in_editor(path: str) -> None:
         else:
             subprocess.Popen(["xdg-open", path])
     except Exception:
-        print(f"(não consegui abrir automaticamente — abra você: {path})")
+        print(f"(nêo consegui abrir automaticamente — abra você: {path})")
 
 
 def main() -> int:
     here = os.path.dirname(os.path.abspath(__file__))
-    ap = argparse.ArgumentParser(description="Destila uma sessão JSONL do Claude Code.")
+    ap = argparse.ArgumentParser(description="Destila uma sessêo JSONL do Claude Code.")
     ap.add_argument("input", nargs="?", default=os.path.join(here, "demo_session.jsonl"),
                     help="arquivo .jsonl de entrada (default: demo_session.jsonl ao lado do script)")
     ap.add_argument("-o", "--output", help="arquivo .md de saída (default: <input>.clean.md)")
     ap.add_argument("--no-thinking", action="store_true", help="descarta blocos <thinking>")
-    ap.add_argument("--no-open", action="store_true", help="não abre a saída no editor")
+    ap.add_argument("--no-open", action="store_true", help="nêo abre a saída no editor")
     args = ap.parse_args()
 
     if not os.path.exists(args.input):
-        print(f"✗ arquivo não encontrado: {args.input}", file=sys.stderr)
+        print(f"✗ arquivo nêo encontrado: {args.input}", file=sys.stderr)
         return 1
 
     out_path = args.output or (os.path.splitext(args.input)[0] + ".clean.md")
@@ -83,7 +83,7 @@ def main() -> int:
     print(f"│ saída   : {out_path}")
     print(f"│ antes   : {human_size(before)}")
     print(f"│ depois  : {human_size(after)}")
-    print(f"│ redução : {shrink:.1f}%  ({human_size(before)} → {human_size(after)})")
+    print(f"│ reduçêo : {shrink:.1f}%  ({human_size(before)} → {human_size(after)})")
     print("└───────────────────────────────────────────────")
 
     if not args.no_open:

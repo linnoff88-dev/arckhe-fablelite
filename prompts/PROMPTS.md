@@ -1,28 +1,28 @@
 # Os 4 prompts do Mindset Fable (PT-BR, prontos pra colar)
 
-Estes são os prompts do método, na ordem. Cada um corresponde a um script já
+Estes sêo os prompts do método, na ordem. Cada um corresponde a um script já
 pronto neste repositório — você pode **colar o prompt** (e deixar o modelo
 escrever o script) **ou** simplesmente rodar o script equivalente em `scripts/`.
 
-> Onde vivem os logs: `~/.claude/projects/<projeto>/<sessão>.jsonl`.
+> Onde vivem os logs: `~/.claude/projects/<projeto>/<sessêo>.jsonl`.
 > O campo de ouro: `message.model` — diz qual modelo escreveu cada turno.
 
 ---
 
-## 1 · Debloat — destilar uma sessão  → `scripts/debloat_jsonl.py`
+## 1 · Debloat — destilar uma sessêo  → `scripts/debloat_jsonl.py`
 
-> A gordura nesses arquivos são os resultados das ferramentas, o conteúdo
-> completo dos arquivos e a saída de comandos que são ecoados de volta para o
+> A gordura nesses arquivos sêo os resultados das ferramentas, o conteúdo
+> completo dos arquivos e a saída de comandos que sêo ecoados de volta para o
 > contexto. Escreva para mim um pequeno script Python, `debloat_jsonl.py`, que
-> pegue um arquivo de sessão do Claude Code em `~/.claude/projects` e reduza-o a
-> uma transcrição leve. Mantenha minhas mensagens de usuário, as mensagens de
+> pegue um arquivo de sessêo do Claude Code em `~/.claude/projects` e reduza-o a
+> uma transcriçêo leve. Mantenha minhas mensagens de usuário, as mensagens de
 > texto do assistente, o modelo que escreveu cada turno e uma linha compacta por
 > chamada de ferramenta mostrando o nome da ferramenta, e mantenha quaisquer
 > blocos de raciocínio, se eles estiverem lá. Remova os payloads pesados dos
 > resultados das ferramentas, os blobs de anexos e a contabilidade do harness.
 > Quando terminar, execute-o em `demo_session.jsonl`, imprima o tamanho do
 > arquivo antes e depois, e abra o arquivo reduzido para podermos ver a
-> transcrição limpa.
+> transcriçêo limpa.
 
 **Equivalente pronto:** `python3 scripts/debloat_jsonl.py` (roda no `demo_session.jsonl`).
 
@@ -39,7 +39,7 @@ escrever o script) **ou** simplesmente rodar o script equivalente em `scripts/`.
 > usou, quantas chamadas de ferramenta ele faz por turno e a ordem em que ele
 > trabalha, como se ele lê um arquivo antes de editá-lo e se executa um teste
 > depois das edições. Dê-me os padrões de comportamento como números reais
-> medidos, não impressões.
+> medidos, nêo impressões.
 
 **Equivalente pronto:** `python3 scripts/extract_corpus.py --model claude-fable-5`
 
@@ -53,7 +53,7 @@ escrever o script) **ou** simplesmente rodar o script equivalente em `scripts/`.
 > as proporções, como leituras antes de edições e testes depois de edições.
 > Depois, transforme essa diferença em um playbook, um único arquivo que eu
 > possa apontar para o Opus 4.8, para que ele adote os padrões de tomada de
-> decisão do Fable, as partes que se transferem para a produção. Seja honesto
+> decisêo do Fable, as partes que se transferem para a produçêo. Seja honesto
 > sobre onde o próprio Fable era fraco, para que o playbook corrija esse hábito
 > em vez de copiá-lo.
 
@@ -65,10 +65,10 @@ python3 scripts/make_playbook.py --from-json playbook/compare.json --out playboo
 
 ---
 
-## 4 · Injetar o playbook no início da sessão  → `hooks/inject-playbook.sh`
+## 4 · Injetar o playbook no início da sessêo  → `hooks/inject-playbook.sh`
 
 > Quero usar os aprendizados de `fable-mindset-playbook.md` e quero que eles
-> sejam sempre injetados no início da sessão:
+> sejam sempre injetados no início da sessêo:
 >
 > CC: `@"claude-code-guide (agent)"` Anexe um hook ao evento `SessionStart`
 > para sempre injetar isso no contexto.
@@ -79,7 +79,7 @@ playbook e o injeta como `additionalContext`. Alternativas: virar **skill**
 
 ---
 
-## E se eu não tenho dados do Fable?
+## E se eu nêo tenho dados do Fable?
 
 Use traces abertos no Hugging Face e rode o MESMO exercício:
 

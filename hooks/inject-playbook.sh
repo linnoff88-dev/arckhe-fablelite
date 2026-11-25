@@ -4,7 +4,7 @@
 # Instale apontando este script no evento SessionStart do Claude Code
 # (veja hooks/README.md). Ele lê o playbook e o devolve como `additionalContext`.
 #
-# Fail-open: se o playbook não existir, não quebra a sessão.
+# Fail-open: se o playbook nêo existir, nêo quebra a sessêo.
 
 set -euo pipefail
 

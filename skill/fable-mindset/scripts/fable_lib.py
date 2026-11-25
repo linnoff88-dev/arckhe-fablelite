@@ -1,11 +1,11 @@
 """
 fable_lib.py — núcleo de parsing e métricas para a técnica "Fable Mindset".
 
-Lê os arquivos de sessão JSONL do Claude Code (um evento JSON por linha) e expõe:
+Lê os arquivos de sessêo JSONL do Claude Code (um evento JSON por linha) e expõe:
 
   - iter_events(path)        : itera eventos, ignorando linhas vazias/corrompidas
   - normalize_turn(event)    : transforma um evento bruto em um "turno" limpo
-  - lightweight_lines(turn)  : linhas de transcrição leve (debloat)
+  - lightweight_lines(turn)  : linhas de transcriçêo leve (debloat)
   - Metrics                  : acumulador de comportamento (contagens, ordem, ratios)
 
 Tudo aqui é dependência ZERO (só stdlib). Os 4 CLIs do curso importam deste módulo
@@ -43,9 +43,9 @@ from typing import Iterable, Iterator
 def iter_events(path: str) -> Iterator[dict]:
     """Itera os eventos de UM arquivo .jsonl, pulando linhas vazias/inválidas.
 
-    Logs reais às vezes têm uma linha truncada no fim (sessão morta no meio).
+    Logs reais às vezes têm uma linha truncada no fim (sessêo morta no meio).
     Por isso engolimos JSONDecodeError em vez de explodir — queremos a
-    transcrição que dá pra recuperar, não a perfeição.
+    transcriçêo que dá pra recuperar, nêo a perfeiçêo.
     """
     with open(path, "r", encoding="utf-8", errors="replace") as fh:
         for line in fh:
@@ -65,10 +65,10 @@ def iter_project_files(projects_dir: str | None = None) -> Iterator[str]:
 
 
 # ----------------------------------------------------------------------------- #
-# 2. Normalização de um evento em "turno"
+# 2. Normalizaçêo de um evento em "turno"
 # ----------------------------------------------------------------------------- #
 
-# Ferramentas que MEXEM em arquivo (alvo de edição)
+# Ferramentas que MEXEM em arquivo (alvo de ediçêo)
 EDIT_TOOLS = {"Edit", "Write", "MultiEdit", "NotebookEdit"}
 READ_TOOLS = {"Read", "NotebookRead"}
 # Heurística de "rodou teste": comando shell que parece suíte de testes
@@ -92,7 +92,7 @@ class Turn:
     tools: list = field(default_factory=list)      # [{"name","summary"}]
     is_human: bool = False   # True = prompt de verdade do usuário
     is_tool_result: bool = False  # True = harness devolvendo saída de ferramenta
-    is_meta: bool = False    # injeção do harness (não conta como humano)
+    is_meta: bool = False    # injeçêo do harness (nêo conta como humano)
     is_sidechain: bool = False  # turno de subagente
 
 
@@ -165,7 +165,7 @@ def normalize_turn(event: dict) -> Turn:
         elif btype in ("thinking", "redacted_thinking"):
             # ACHADO IMPORTANTE: nos logs do Claude Code o texto do raciocínio
             # vem VAZIO (só fica a `signature` cifrada). Dá para minerar a
-            # PRESENÇA do raciocínio (pensou antes de agir?), não o texto dele.
+            # PRESENÇA do raciocínio (pensou antes de agir?), nêo o texto dele.
             t.has_thinking = True
             th = (block.get("thinking") or "").strip()
             if th:
@@ -178,18 +178,18 @@ def normalize_turn(event: dict) -> Turn:
             t.is_tool_result = True
         # qualquer outro tipo (image/document/attachment) = gordura, ignora
 
-    # Um turno "user" é HUMANO de verdade se tem texto, não é tool_result e não é meta
+    # Um turno "user" é HUMANO de verdade se tem texto, nêo é tool_result e nêo é meta
     if t.role == "user" and t.texts and not t.is_tool_result and not t.is_meta:
         t.is_human = True
     return t
 
 
 # ----------------------------------------------------------------------------- #
-# 3. Transcrição leve (debloat)
+# 3. Transcriçêo leve (debloat)
 # ----------------------------------------------------------------------------- #
 
 def lightweight_lines(turn: Turn, keep_thinking: bool = True) -> list[str]:
-    """Linhas de transcrição leve para UM turno. Vazio = nada a mostrar."""
+    """Linhas de transcriçêo leve para UM turno. Vazio = nada a mostrar."""
     out: list[str] = []
     stamp = turn.ts[:19].replace("T", " ") if turn.ts else ""
 
@@ -217,7 +217,7 @@ def lightweight_lines(turn: Turn, keep_thinking: bool = True) -> list[str]:
 
 
 def debloat_file(path: str, keep_thinking: bool = True) -> str:
-    """Transcrição leve de um arquivo de sessão inteiro, em Markdown."""
+    """Transcriçêo leve de um arquivo de sessêo inteiro, em Markdown."""
     chunks: list[str] = []
     for event in iter_events(path):
         turn = normalize_turn(event)
@@ -226,7 +226,7 @@ def debloat_file(path: str, keep_thinking: bool = True) -> str:
 
 
 # ----------------------------------------------------------------------------- #
-# 4. Métricas de comportamento (números reais, não impressões)
+# 4. Métricas de comportamento (números reais, nêo impressões)
 # ----------------------------------------------------------------------------- #
 
 @dataclass
@@ -247,16 +247,16 @@ class Metrics:
     test_after_edit_sessions: int = 0  # sessões que rodaram teste DEPOIS de editar
     sessions_with_edit: int = 0
 
-    # --- agregação ---------------------------------------------------------- #
+    # --- agregaçêo ---------------------------------------------------------- #
     def add_session(self, events: Iterable[dict]) -> None:
-        """Acumula UMA sessão, agrupando linhas-evento em TURNOS LÓGICOS.
+        """Acumula UMA sessêo, agrupando linhas-evento em TURNOS LÓGICOS.
 
         Por que agrupar: o Claude Code grava cada bloco de conteúdo do assistente
         em uma LINHA separada (uma só p/ o thinking, outra p/ o texto, outra p/
         cada tool_use). Contar "por linha" dilui o sinal (texto puro tem 0
         ferramenta). Um TURNO LÓGICO = um prompt humano e tudo que o assistente
-        fez até o próximo prompt humano. As linhas de tool_result no meio NÃO
-        quebram o turno (são o harness devolvendo saída, não um humano).
+        fez até o próximo prompt humano. As linhas de tool_result no meio NêO
+        quebram o turno (sêo o harness devolvendo saída, nêo um humano).
         """
         self.sessions += 1
         files_read: set[str] = set()
@@ -297,7 +297,7 @@ class Metrics:
 
             # linha de assistente -> pertence ao turno lógico corrente
             if not open_turn:
-                open_turn = True        # turno sem prompt humano antes (continuação)
+                open_turn = True        # turno sem prompt humano antes (continuaçêo)
             self.assistant_lines += 1
             cur_lines += 1
             if turn.has_thinking:
@@ -389,8 +389,8 @@ def collect_model_metrics(
 ) -> Metrics:
     """Varre todos os projetos e acumula métricas SÓ dos turnos do `model`.
 
-    Truque: uma mesma sessão pode misturar modelos. Para o cálculo de ordem
-    (read-before-edit etc.) processamos a sessão inteira, mas só somamos os
+    Truque: uma mesma sessêo pode misturar modelos. Para o cálculo de ordem
+    (read-before-edit etc.) processamos a sessêo inteira, mas só somamos os
     turnos do assistente cujo `message.model` bate com o alvo.
 
     `cap_lines`: se dado, PARA de acumular assim que o modelo atinge ~esse número
@@ -402,7 +402,7 @@ def collect_model_metrics(
     paths = files if files is not None else list(iter_project_files(projects_dir))
     for path in paths:
         events = list(iter_events(path))
-        # a sessão "conta" para este modelo se ele escreveu algum turno aqui
+        # a sessêo "conta" para este modelo se ele escreveu algum turno aqui
         has_model = any(
             ev.get("type") == "assistant" and (ev.get("message") or {}).get("model") == model
             for ev in events

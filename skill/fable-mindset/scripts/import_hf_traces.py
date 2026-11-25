@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-import_hf_traces.py — e se você mal teve tempo de conversar com o Fable e não
+import_hf_traces.py — e se você mal teve tempo de conversar com o Fable e nêo
 tem dados próprios para minerar?
 
 Pessoas abriram as próprias sessões do Claude Code no Hugging Face. O dataset
-`Glint-Research/Fable-5-traces` NÃO é um chat achatado: é um DUMP CRU de
+`Glint-Research/Fable-5-traces` NêO é um chat achatado: é um DUMP CRU de
 `~/.claude/projects/` — arquivos .jsonl no formato nativo do Claude Code, com a
 estrutura de blocos (`thinking`, `tool_use`) preservada. Ou seja: dá para rodar
 o MESMO exercício comportamental do curso sobre dados de terceiros.
 
 Este script baixa esses .jsonl direto pela API do Hugging Face — só stdlib, SEM
-a lib `datasets` — para uma pasta local, e então mede o comportamento do modelo
+a lib `datasets` — para uma pasta local, e entêo mede o comportamento do modelo
 com o mesmo `fable_lib` do resto do curso.
 
 USO
@@ -48,7 +48,7 @@ def _get_json(url: str):
 
 
 def list_session_files(ds: str, include_subagents: bool) -> list[dict]:
-    """Arquivos .jsonl de sessão dentro de claude/projects/ no repo do dataset."""
+    """Arquivos .jsonl de sessêo dentro de claude/projects/ no repo do dataset."""
     out = []
     for t in _get_json(_API.format(ds=ds)):
         if t.get("type") != "file":
@@ -88,7 +88,7 @@ def main() -> int:
     try:
         files = list_session_files(args.dataset, args.include_subagents)
     except Exception as e:
-        print(f"✗ não consegui listar o dataset {args.dataset}: {e}", file=sys.stderr)
+        print(f"✗ nêo consegui listar o dataset {args.dataset}: {e}", file=sys.stderr)
         return 1
     if not files:
         print("✗ nenhum .jsonl em claude/projects/ neste dataset. Confira o id.", file=sys.stderr)
@@ -106,7 +106,7 @@ def main() -> int:
             dm = discover_models(out_dir)
             print(f"1º arquivo: {first['path']}")
             print("modelos no 1º arquivo (passos):", dict(dm.most_common(8)))
-            print("→ schema OK: são eventos crus do Claude Code (type/message/model).")
+            print("→ schema OK: sêo eventos crus do Claude Code (type/message/model).")
         return 0
 
     sel = files if args.limit_files is None else files[: args.limit_files]

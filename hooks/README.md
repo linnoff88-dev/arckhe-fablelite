@@ -1,9 +1,9 @@
 # hooks/ — injetar o playbook automaticamente
 
 O passo final do método: fazer o playbook entrar no contexto **sozinho**, no
-começo de cada sessão. Três formas, da mais automática à mais simples.
+começo de cada sessêo. Três formas, da mais automática à mais simples.
 
-## A) Hook `SessionStart` (injeção automática)
+## A) Hook `SessionStart` (injeçêo automática)
 
 1. Torne o script executável:
    ```bash
@@ -24,10 +24,10 @@ começo de cada sessão. Três formas, da mais automática à mais simples.
      }
    }
    ```
-3. Pronto. A cada nova sessão, o playbook entra como `additionalContext`.
+3. Pronto. A cada nova sessêo, o playbook entra como `additionalContext`.
 
 > Quer apontar para outro playbook? Defina `FABLE_PLAYBOOK=/caminho/para/playbook.md`
-> no ambiente. O hook é **fail-open**: se o arquivo não existir, a sessão segue normal.
+> no ambiente. O hook é **fail-open**: se o arquivo nêo existir, a sessêo segue normal.
 
 ## B) Skill
 
@@ -38,7 +38,7 @@ vez de injetar sempre.
 ## C) `CLAUDE.md`
 
 O caminho mais simples: cole o conteúdo do playbook (ou um link para ele) no seu
-`CLAUDE.md` global ou de projeto. Ele já é auto-injetado em toda sessão.
+`CLAUDE.md` global ou de projeto. Ele já é auto-injetado em toda sessêo.
 
 ---
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 compare_models.py — coloca DOIS modelos lado a lado e mede a distância no
-ritmo deles: cadência de chamadas de ferramenta, sequências de ação e as
+ritmo deles: cadência de chamadas de ferramenta, sequências de açêo e as
 proporções (read-antes-de-edit, teste-depois-de-edit, quanto raciocina).
 
 É o passo do curso onde a gente vê o DELTA entre, por exemplo, o
@@ -60,7 +60,7 @@ def print_side_by_side(a: Metrics, b: Metrics) -> None:
         print(f"{label:<{w0}} {sa:>{w1}} {sb:>{w2}}   {ds}")
     print()
     # leitura qualitativa do delta de cadência (honesta: mais ferramentas/turno
-    # NÃO é automaticamente "melhor" — pode ser densidade de trabalho OU thrashing)
+    # NêO é automaticamente "melhor" — pode ser densidade de trabalho OU thrashing)
     if a.avg_tools_per_turn and b.avg_tools_per_turn and a.avg_tools_per_turn != b.avg_tools_per_turn:
         hi, lo = (a, b) if a.avg_tools_per_turn >= b.avg_tools_per_turn else (b, a)
         print(f"⮕ {hi.model} faz MAIS ferramentas por turno "

@@ -41,12 +41,12 @@
   {
     "course": "fable-lite",
     "tracks": [
-      { "n": "1", "title": "Os Logs São Ouro", "modules": [
-        { "id": "1-1", "title": "Onde Vivem as Conversas e a Anatomia de uma Sessão", "topics": 6, "href": "curso/trilha1/modulo-1-1.html" },
+      { "n": "1", "title": "Os Logs Sêo Ouro", "modules": [
+        { "id": "1-1", "title": "Onde Vivem as Conversas e a Anatomia de uma Sessêo", "topics": 6, "href": "curso/trilha1/modulo-1-1.html" },
         { "id": "1-2", "title": "Gordura vs Ouro — e o Mito do Raciocínio Minerável", "topics": 6, "href": "curso/trilha1/modulo-1-2.html" }
       ]},
-      { "n": "2", "title": "A Mão na Massa", "modules": [
-        { "id": "2-1", "title": "Debloat: Destilando a Transcrição", "topics": 6, "href": "curso/trilha2/modulo-2-1.html" },
+      { "n": "2", "title": "A Mêo na Massa", "modules": [
+        { "id": "2-1", "title": "Debloat: Destilando a Transcriçêo", "topics": 6, "href": "curso/trilha2/modulo-2-1.html" },
         { "id": "2-2", "title": "Corpus, Números e o Delta Fable vs Opus", "topics": 6, "href": "curso/trilha2/modulo-2-2.html" }
       ]},
       { "n": "3", "title": "Do Delta ao Playbook", "modules": [
@@ -233,7 +233,7 @@
 <path d="M230,110 L405,110" marker-end="url(#m42-ah)"></path>
 <path d="M595,110 L770,110" marker-end="url(#m42-ah)"></path>
 </g>
-<!-- realimentação (ciano, volta) -->
+<!-- realimentaçêo (ciano, volta) -->
 <path d="M870,146 C870,194 135,194 135,142" fill="none" marker-end="url(#m42-ahc)" opacity="0.5" stroke="#38bdf8" stroke-dasharray="7 6" stroke-width="1.8"></path>
 <text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="502" y="212">new logs feed back in — remeasure against the baseline</text>
 </svg>
@@ -295,7 +295,7 @@
           <code class="font-mono text-amber-400">SessionStart</code> existing — doesn't overwrite the hooks you already have.
         </p>
 <div class="bg-dark-900 rounded-xl border border-dark-600 p-6 mb-6 font-mono text-xs overflow-x-auto">
-<pre class="text-neutral-300"><span class="text-neutral-500">// ~/.claude/settings.json — MESCLE no array existente, não sobrescreva</span>
+<pre class="text-neutral-300"><span class="text-neutral-500">// ~/.claude/settings.json — MESCLE no array existente, nêo sobrescreva</span>
 {
   "hooks": {
     "SessionStart": [
@@ -405,7 +405,7 @@ curl -s <span class="text-amber-400">"https://huggingface.co/api/datasets/$REPO/
   | python3 -c <span class="text-amber-400">'import sys,json; [print(f["path"]) for f in json.load(sys.stdin) if f["path"].endswith(".jsonl")]'</span> \
   &gt; files.txt
 
-<span class="text-neutral-500"># 2. baixa cada arquivo cru (resolve/main = o blob, não a página)</span>
+<span class="text-neutral-500"># 2. baixa cada arquivo cru (resolve/main = o blob, nêo a página)</span>
 mkdir -p corpus_fable_hf
 while read f; do
   curl -sL <span class="text-amber-400">"https://huggingface.co/datasets/$REPO/resolve/main/$f"</span> \
@@ -444,7 +444,7 @@ python3 -m fable_lib.measure --glob <span class="text-amber-400">"corpus_fable_h
           The real proof is reproducible: run the same commands and save a <strong class="text-amber-400">DATED baseline</strong> in one place <strong class="text-amber-400">durable</strong> (not <code class="font-mono text-amber-400">/tmp</code>, which disappears).
           Without the saved baseline, you can't tell later whether the playbook moved the number.
         </p>
-<!-- TIMELINE: os passos de reprodução -->
+<!-- TIMELINE: os passos de reproduçêo -->
 <div class="space-y-4 mb-6">
 <div class="flex items-start space-x-4">
 <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">1</span></div>

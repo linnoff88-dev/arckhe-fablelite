@@ -1,6 +1,6 @@
 # _KIT.md — Build Kit do curso "Fable Lite" (ARCKHÉ AI v2)
 
-> **Para os agentes de Trilha 2 e Trilha 3.** A Trilha 1 (fundação) já está pronta.
+> **Para os agentes de Trilha 2 e Trilha 3.** A Trilha 1 (fundaçêo) já está pronta.
 > Você DEVE ser idêntico a ela: mesmo `<head>`, mesmo manifesto, mesmo nav, mesmo
 > rodapé, mesmos snippets de learn.*, mesmas convenções `data-*`. Só MUDA: a cor da
 > trilha, os textos/tópicos do seu conteúdo, e a trilha ativa no nav.
@@ -15,17 +15,17 @@
 
 ---
 
-## 0. Regras de OURO (não negociáveis)
+## 0. Regras de OURO (nêo negociáveis)
 
 1. **Caminhos relativos, NUNCA absolutos.** O site é servido em sub-path:
    `https://linnoff88-dev.github.io/ Profundidade por página:
    - **Landing** (`/index.html`): assets = `assets/...`, links = `curso/trilhaX/...`.
    - **Index de trilha** (`/curso/trilhaX/index.html`): assets = `../../assets/...`,
-     landing = `../../index.html`, irmãs = `../trilhaY/index.html`, módulos = `modulo-X-Y.html`.
+     landing = `../../index.html`, irmês = `../trilhaY/index.html`, módulos = `modulo-X-Y.html`.
    - **Módulo** (`/curso/trilhaX/modulo-X-Y.html`): IGUAL ao index de trilha (`../../`, `../trilhaY/`, `modulo-X-Y.html`).
    - **Teste mental cada link.** Nunca `href="/..."` nem `src="/..."`.
 2. **Assets compartilhados já existem** em `/assets/learn.css` e `/assets/learn.js`
-   (copiados verbatim da skill). **NÃO os recrie.** Apenas referencie por `<link>`/`<script src>` relativo.
+   (copiados verbatim da skill). **NêO os recrie.** Apenas referencie por `<link>`/`<script src>` relativo.
 3. **Anti-FOUC, manifesto e meta-course em TODA página** — idênticos (colar daqui).
 4. **6 tópicos por módulo**, ids `topico-1`..`topico-6`, cada um com 3 seções
    (O que é / Por que aprender / Conceitos-chave) — nos cards do index — e nos
@@ -162,12 +162,12 @@
 {
   "course": "fable-lite",
   "tracks": [
-    { "n": "1", "title": "Os Logs São Ouro", "modules": [
-      { "id": "1-1", "title": "Onde Vivem as Conversas e a Anatomia de uma Sessão", "topics": 6, "href": "curso/trilha1/modulo-1-1.html" },
+    { "n": "1", "title": "Os Logs Sêo Ouro", "modules": [
+      { "id": "1-1", "title": "Onde Vivem as Conversas e a Anatomia de uma Sessêo", "topics": 6, "href": "curso/trilha1/modulo-1-1.html" },
       { "id": "1-2", "title": "Gordura vs Ouro — e o Mito do Raciocínio Minerável", "topics": 6, "href": "curso/trilha1/modulo-1-2.html" }
     ]},
-    { "n": "2", "title": "A Mão na Massa", "modules": [
-      { "id": "2-1", "title": "Debloat: Destilando a Transcrição", "topics": 6, "href": "curso/trilha2/modulo-2-1.html" },
+    { "n": "2", "title": "A Mêo na Massa", "modules": [
+      { "id": "2-1", "title": "Debloat: Destilando a Transcriçêo", "topics": 6, "href": "curso/trilha2/modulo-2-1.html" },
       { "id": "2-2", "title": "Corpus, Números e o Delta Fable vs Opus", "topics": 6, "href": "curso/trilha2/modulo-2-2.html" }
     ]},
     { "n": "3", "title": "Do Delta ao Playbook", "modules": [
@@ -180,7 +180,7 @@
 
 - `topics` é a CONTAGEM de `[data-ARCKHÉ-topic]` reais do módulo. Como cada módulo tem
   6 tópicos, `topics: 6` em todos. **Se você mudar o nº de tópicos, atualize o manifesto
-  em TODAS as páginas** (e ele tem que bater com o DOM, senão o % do curso fica errado — Erro #28).
+  em TODAS as páginas** (e ele tem que bater com o DOM, senêo o % do curso fica errado — Erro #28).
 - `course` casa com `<meta name="ARCKHÉ-course" content="fable-lite">`. `n`/`id` casam com `data-ARCKHÉ-track`/`data-ARCKHÉ-module`.
 
 ---
@@ -201,10 +201,10 @@
       <div class="flex items-center space-x-1 sm:space-x-2">
         <!-- 3 botões de trilha. O DA PÁGINA ATUAL fica ativo: text-COR-400 bg-COR-500/10. Os outros: text-neutral-400 hover:text-COR-400 hover:bg-COR-500/10 transition-colors -->
         <a href="REL_T1" class="px-3 py-1.5 rounded-lg text-sm font-semibold {ATIVO? text-emerald-400 bg-emerald-500/10 : text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors}">
-          <span class="sm:hidden">T1</span><span class="hidden sm:inline">Os Logs São Ouro</span>
+          <span class="sm:hidden">T1</span><span class="hidden sm:inline">Os Logs Sêo Ouro</span>
         </a>
         <a href="REL_T2" class="px-3 py-1.5 rounded-lg text-sm font-semibold {ATIVO? text-blue-400 bg-blue-500/10 : text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors}">
-          <span class="sm:hidden">T2</span><span class="hidden sm:inline">A Mão na Massa</span>
+          <span class="sm:hidden">T2</span><span class="hidden sm:inline">A Mêo na Massa</span>
         </a>
         <a href="REL_T3" class="px-3 py-1.5 rounded-lg text-sm font-semibold {ATIVO? text-purple-400 bg-purple-500/10 : text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors}">
           <span class="sm:hidden">T3</span><span class="hidden sm:inline">Do Delta ao Playbook</span>
@@ -233,7 +233,7 @@
 | `REL_T2` | `curso/trilha2/index.html` | `../trilha2/index.html` (ou `index.html` se você é a T2) |
 | `REL_T3` | `curso/trilha3/index.html` | `../trilha3/index.html` (ou `index.html` se você é a T3) |
 
-> Na SUA própria trilha, o botão dela aponta para `index.html` (mesma pasta) e fica ativo.
+> Na SUA própria trilha, o botêo dela aponta para `index.html` (mesma pasta) e fica ativo.
 
 ---
 
@@ -253,9 +253,9 @@
 <section class="mb-8">
   <div class="bg-gradient-to-br from-COR-900/40 via-dark-800 to-dark-800 rounded-xl border border-COR-500/30 p-8 text-center">
     <h2 class="text-2xl font-bold mb-3">[CHAMADA]</h2>
-    <p class="text-neutral-300 mb-6 max-w-2xl mx-auto ARCKHÉ-prose">Este curso é parte da comunidade ARCKHÉ AI — pesquisa, educação e experimentos com IA aplicada.</p>
+    <p class="text-neutral-300 mb-6 max-w-2xl mx-auto ARCKHÉ-prose">Este curso é parte da comunidade ARCKHÉ AI — pesquisa, educaçêo e experimentos com IA aplicada.</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="[PRÓXIMO]" class="px-6 py-3 bg-COR-600 hover:bg-COR-500 text-white rounded-lg font-semibold transition-colors">[AÇÃO] →</a>
+      <a href="[PRÓXIMO]" class="px-6 py-3 bg-COR-600 hover:bg-COR-500 text-white rounded-lg font-semibold transition-colors">[AÇêO] →</a>
       <a href="https://ARCKHÉ AI" target="_blank" rel="noopener" class="px-6 py-3 bg-dark-700 hover:bg-dark-600 text-sky-400 rounded-lg font-semibold transition-colors">Visitar ARCKHÉ AI</a>
     </div>
   </div>
@@ -319,63 +319,63 @@
 **Onde a cor troca (substitua TODAS as ocorrências de `emerald` da T1 pela sua):**
 - Badge da trilha/módulo, header gradiente (`from-COR-900/30`), números em círculo,
   botões "Ver Completo"/"Marcar como lido"/CTA, hover dos cards, medidores `text-COR-400`,
-  `border-COR-500/30`, `bg-COR-500/20`, TOC hover, breadcrumb hover, botão ativo no nav.
+  `border-COR-500/30`, `bg-COR-500/20`, TOC hover, breadcrumb hover, botêo ativo no nav.
 - **Bloco light-mode do `<style>`:** troque o bloco de acento (`text-COR-400`, `bg-COR-500/20`...) pela tabela acima.
 - **SVGs:** primária = cor da trilha (tabela), secundária = **ciano `#38bdf8`** SEMPRE.
-- **Ciano `#38bdf8` é constante** (agentes / ramo paralelo / fluxo de volta) — não troca.
+- **Ciano `#38bdf8` é constante** (agentes / ramo paralelo / fluxo de volta) — nêo troca.
 
-**Cor fixa em qualquer trilha:** primary/yellow `#FACC15` (logo/dicas), sky `text-sky-400` (ARCKHÉ AI), red `text-red-400` (não-fazer).
+**Cor fixa em qualquer trilha:** primary/yellow `#FACC15` (logo/dicas), sky `text-sky-400` (ARCKHÉ AI), red `text-red-400` (nêo-fazer).
 
 ---
 
 ## 7. O que CADA agente de trilha deve produzir
 
-### Trilha 2 — `curso/trilha2/` (cor BLUE) "A Mão na Massa"
+### Trilha 2 — `curso/trilha2/` (cor BLUE) "A Mêo na Massa"
 - `index.html` — index da trilha: nav (T2 ativa), header + **1 hero SVG** (azul+ciano),
   progresso da trilha, **Mapa da trilha** (h2 `Mapa da trilha` + 2 cards-âncora `#modulo-2-1`/`#modulo-2-2`),
   h2 `Conteúdo detalhado`, 2 cards de módulo (cada um com 6 tópicos expansíveis de 3 seções,
-  botões `Ver em Modal` + `Ver Completo` em `justify-start`), 2 modais com `<iframe>`, navegação T1↔T3, rodapé.
-- `modulo-2-1.html` "Debloat: Destilando a Transcrição" — 6 tópicos:
+  botões `Ver em Modal` + `Ver Completo` em `justify-start`), 2 modais com `<iframe>`, navegaçêo T1↔T3, rodapé.
+- `modulo-2-1.html` "Debloat: Destilando a Transcriçêo" — 6 tópicos:
   1. O que o debloat remove (a gordura na prática) · 2. O que preserva (o ouro) ·
-  3. Antes/depois numa sessão real (~74%) · 4. `debloat_jsonl.py` por dentro (stdlib pura) ·
-  5. A transcrição leve resultante (formato legível) · 6. Rodando no seu histórico vs no demo.
+  3. Antes/depois numa sessêo real (~74%) · 4. `debloat_jsonl.py` por dentro (stdlib pura) ·
+  5. A transcriçêo leve resultante (formato legível) · 6. Rodando no seu histórico vs no demo.
 - `modulo-2-2.html` "Corpus, Números e o Delta Fable vs Opus" — 6 tópicos:
   1. `extract_corpus.py` — filtrar por modelo · 2. As métricas (turno lógico, % pensa-antes, ferr./turno, read-antes-de-edit, teste-depois-de-edit) ·
   3. **Os números reais** (Fable 99% vs Opus 54%; 6,57 vs 7,86 ferr./turno) · 4. O delta forte e transferível (+45 pontos) ·
-  5. `compare_models.py` e o `compare.json` · 6. Cuidado com amostra pequena / o que NÃO afirmar.
+  5. `compare_models.py` e o `compare.json` · 6. Cuidado com amostra pequena / o que NêO afirmar.
 
 ### Trilha 3 — `curso/trilha3/` (cor PURPLE) "Do Delta ao Playbook"
-- `index.html` — igual em estrutura à T2, cor purple, hero SVG roxo+ciano, Mapa com `#modulo-3-1`/`#modulo-3-2`, navegação T2↔(landing).
+- `index.html` — igual em estrutura à T2, cor purple, hero SVG roxo+ciano, Mapa com `#modulo-3-1`/`#modulo-3-2`, navegaçêo T2↔(landing).
 - `modulo-3-1.html` "Escrevendo o Playbook" — 6 tópicos:
-  1. Do delta à regra (transformar número em instrução) · 2. `make_playbook.py` e o `.md` acionável ·
-  3. Anatomia de uma regra de playbook · 4. "Pense antes de agir" como regra-âncora · 5. O que NÃO virar regra (sinais fracos) · 6. Versionar e revisar o playbook.
+  1. Do delta à regra (transformar número em instruçêo) · 2. `make_playbook.py` e o `.md` acionável ·
+  3. Anatomia de uma regra de playbook · 4. "Pense antes de agir" como regra-âncora · 5. O que NêO virar regra (sinais fracos) · 6. Versionar e revisar o playbook.
 - `modulo-3-2.html` "Injetando no Modelo (e Sem Dados Próprios)" — 6 tópicos:
-  1. Três canais de injeção: hook / skill / CLAUDE.md · 2. O hook `SessionStart` (`hooks/inject-playbook.sh`) ·
+  1. Três canais de injeçêo: hook / skill / CLAUDE.md · 2. O hook `SessionStart` (`hooks/inject-playbook.sh`) ·
   3. Injetar via skill · 4. Injetar via CLAUDE.md · 5. **Sem dados próprios:** `import_hf_traces.py` + dataset `Glint-Research/Fable-5-traces` (HF) · 6. Medir o efeito (o loop fecha).
 
 **Cada módulo:** 500-800 linhas, 6 seções ricas com VARIEDADE (≥2 grids ✓/✗, ≥1 timeline,
 ≥2 tip boxes, ≥1 code/mono box), **≥1 SVG futurista inline**, TOC+scrollspy, `data-ARCKHÉ-read-toggle`
-por seção, `data-ARCKHÉ-doubt-toggle` por tópico, `data-ARCKHÉ-block` na prosa, resumo final + navegação.
+por seçêo, `data-ARCKHÉ-doubt-toggle` por tópico, `data-ARCKHÉ-block` na prosa, resumo final + navegaçêo.
 
 ---
 
-## 8. Números reais + achado honesto (REUSE nos módulos — são verídicos)
+## 8. Números reais + achado honesto (REUSE nos módulos — sêo verídicos)
 
 - **Pensar-antes-de-agir:** Fable-5 = **99%** dos turnos lógicos · Opus-4.8 = **54%** → **delta +45 pontos** (o sinal FORTE e transferível).
 - **Ferramentas/turno:** Fable-5 = **6,57** · Opus-4.8 = **7,86** (Fable foi mais econômico).
-- **Debloat:** reduz uma sessão típica em **~74%**.
-- **Amostra:** Fable = 7 sessões / 69 turnos lógicos (PEQUENA — não exagere os outros sinais); Opus = 1114 sessões.
+- **Debloat:** reduz uma sessêo típica em **~74%**.
+- **Amostra:** Fable = 7 sessões / 69 turnos lógicos (PEQUENA — nêo exagere os outros sinais); Opus = 1114 sessões.
 - **ACHADO HONESTO (diferencial do curso):** o TEXTO do `thinking` vem **VAZIO/cifrado** nos logs (só a `signature`).
-  Você **não** minera o pensamento literal — minera a **PRESENÇA** do raciocínio + o **texto visível** + a **sequência de ferramentas** (o *ritmo*).
+  Você **nêo** minera o pensamento literal — minera a **PRESENÇA** do raciocínio + o **texto visível** + a **sequência de ferramentas** (o *ritmo*).
 - **Honestidade metodológica:** só "pensa-antes-de-agir" é delta firme; read-antes-de-edit e teste-depois-de-edit
-  são boa prática medida por heurística conservadora, não delta robusto.
+  sêo boa prática medida por heurística conservadora, nêo delta robusto.
 
 **Links a citar:** `scripts/` (este repo, README em `scripts/README.md`) · dataset aberto
 `Glint-Research/Fable-5-traces` → `https://huggingface.co/datasets/Glint-Research/Fable-5-traces` · `https://ARCKHÉ AI`.
 
 ---
 
-## 9. Convenção `data-ARCKHÉ-*` (contrato de ancoragem — NÃO improvise IDs)
+## 9. Convençêo `data-ARCKHÉ-*` (contrato de ancoragem — NêO improvise IDs)
 
 ```html
 <!-- meta no <head> de TODA página -->
@@ -384,7 +384,7 @@ por seção, `data-ARCKHÉ-doubt-toggle` por tópico, `data-ARCKHÉ-block` na pr
 <!-- HEADER do módulo (ou card exterior) -->
 <header id="modulo-X-Y" data-ARCKHÉ-module="X-Y" data-ARCKHÉ-track="N"> … </header>
 
-<!-- cada SEÇÃO de tópico no módulo completo -->
+<!-- cada SEÇêO de tópico no módulo completo -->
 <section id="topico-N" data-ARCKHÉ-topic="modulo-X-Y#topico-N"> … </section>
 
 <!-- prosa anotável (mX-Y-tN-pK = módulo-tópico-parágrafo, determinístico) -->
@@ -414,7 +414,7 @@ por seção, `data-ARCKHÉ-doubt-toggle` por tópico, `data-ARCKHÉ-block` na pr
 <nav data-ARCKHÉ-toc aria-label="Índice da página">…<span data-ARCKHÉ-section-counter>1 de 6</span>… <a href="#topico-1" class="ARCKHÉ-toc-link">…</a></nav>
 ```
 
-**Regras:** `data-ARCKHÉ-topic` é o id ESTÁVEL (não muda com layout/tema). IDs do módulo no
+**Regras:** `data-ARCKHÉ-topic` é o id ESTÁVEL (nêo muda com layout/tema). IDs do módulo no
 manifesto = `X-Y` (ex.: `2-1`), tópicos = `modulo-X-Y#topico-N`. Os accordions do INDEX
 mantêm `onclick="toggleTopic(this)"` + `aria-expanded`/`aria-controls`.
 
@@ -422,16 +422,16 @@ mantêm `onclick="toggleTopic(this)"` + `aria-expanded`/`aria-controls`.
 
 ## 10. Checklist rápido antes de entregar (Erros #1-#28)
 
-- [ ] **#1** Botões de ação (módulo/read-toggle) em `flex justify-start` (nunca `justify-center space-x`).
+- [ ] **#1** Botões de açêo (módulo/read-toggle) em `flex justify-start` (nunca `justify-center space-x`).
 - [ ] **#2** Números em círculo nos tópicos (nunca `▶`/seta).
 - [ ] **#3/#11** 6 tópicos por módulo; cada tópico-card com 3 seções (O que é/Por que/Conceitos).
 - [ ] **#4** ARCKHÉ AI `text-sky-400` em toda página.
 - [ ] **#5** Light-mode CSS completo (base + acento da trilha + sem gradiente + especiais + nav).
 - [ ] **#6/#9** Título de módulo `text-2xl font-bold`; todos os cards do index com tópicos expansíveis.
 - [ ] **#10** Cada card do index com `<a href="modulo-X-Y.html">Ver Completo</a>`.
-- [ ] **#12** Index: h2 `Mapa da trilha` + cards-âncora (`justify-between`, X.Y esq + duração dir, emoji+título, subtítulo PUNCHY, sem círculo extra) + `id="modulo-X-Y"` nos cards grandes.
+- [ ] **#12** Index: h2 `Mapa da trilha` + cards-âncora (`justify-between`, X.Y esq + duraçêo dir, emoji+título, subtítulo PUNCHY, sem círculo extra) + `id="modulo-X-Y"` nos cards grandes.
 - [ ] **#13** Nav completo idêntico em TODAS as páginas (trilha ativa destacada).
-- [ ] **#14** Módulos 500-800 linhas com VARIEDADE de componentes (não template 6x).
+- [ ] **#14** Módulos 500-800 linhas com VARIEDADE de componentes (nêo template 6x).
 - [ ] **#15** Dark: ambas regras `.border-dark-600` E `.divide-dark-600 > ...` com `#374151`.
 - [ ] **#16** Divisor "Conteúdo detalhado" = h2 simples.
 - [ ] **#17** ≥1 SVG futurista inline por módulo + 1 hero SVG no index (cor da trilha + ciano, `role="img"`+`aria-label`, glow só na caixa-foco, `html:not(.dark) svg[role="img"]{filter:...}`).
@@ -439,16 +439,16 @@ mantêm `onclick="toggleTopic(this)"` + `aria-expanded`/`aria-controls`.
 - [ ] **#19** `data-ARCKHÉ-course`/`-module`/`-track`/`-topic`/`-block` estáveis.
 - [ ] **#20** Marcar-lido `<button aria-pressed>` + `justify-start` + teclado.
 - [ ] **#21/#28** Manifesto idêntico em TODA página; `topics` bate com os `data-ARCKHÉ-topic` reais; medidores curso/trilha/módulo.
-- [ ] **#22** Export/import via learn.js (não recriar; só plugar a jornada).
+- [ ] **#22** Export/import via learn.js (nêo recriar; só plugar a jornada).
 - [ ] **#23** Contraste por tema; ambar nunca como TEXTO em superfície clara; bridge de chrome via learn.css carregada.
 - [ ] **#24** Highlight via learn.js (TreeWalker) — só plugar `data-ARCKHÉ-block`.
 - [ ] **#25** `scroll-margin-top` nos `[id]`; jornada (learn.js) com foco preso.
-- [ ] **#26** Modo efêmero garantido pelo learn.js (não quebra sem storage).
+- [ ] **#26** Modo efêmero garantido pelo learn.js (nêo quebra sem storage).
 - [ ] **#27** `@media (prefers-reduced-motion)` nos SVGs animados.
 - [ ] **Caminhos relativos** corretos por profundidade; ZERO `href="/..."`/`src="/..."`.
 
 ---
 
-**Fundação entregue:** `index.html` (landing), `assets/learn.css`, `assets/learn.js`,
+**Fundaçêo entregue:** `index.html` (landing), `assets/learn.css`, `assets/learn.js`,
 `curso/trilha1/index.html`, `curso/trilha1/modulo-1-1.html`, `curso/trilha1/modulo-1-2.html`.
-Copie a estrutura exata desses arquivos. Boa construção. — ARCKHÉ AI
+Copie a estrutura exata desses arquivos. Boa construçêo. — ARCKHÉ AI
